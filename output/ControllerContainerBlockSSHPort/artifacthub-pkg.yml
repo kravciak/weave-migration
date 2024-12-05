@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-block-ssh-port
 displayName: Containers Block Ssh Port
-createdAt: 2024-12-04T22:45:24.547353256Z
+createdAt: 2024-12-05T22:20:11.706076034Z
 description: This Policy checks if the container is exposing ssh port.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
@@ -40,12 +40,33 @@ annotations:
   kubewarden/resources: Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
   kubewarden/rules: |
     - apiGroups:
+      - apps
+      apiVersions:
+      - v1
+      resources:
+      - deployments
+      - replicasets
+      - daemonsets
+      - statefulsets
+      operations:
+      - CREATE
+      - UPDATE
+    - apiGroups:
+      - batch
+      apiVersions:
+      - v1
+      resources:
+      - jobs
+      - cronjobs
+      operations:
+      - CREATE
+      - UPDATE
+    - apiGroups:
       - ''
       apiVersions:
       - v1
       resources:
-      - '*'
+      - replicationcontrollers
       operations:
       - CREATE
       - UPDATE
-      - DELETE

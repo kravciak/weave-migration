@@ -53,14 +53,90 @@ do_readme() {
     yq '{"settings": .spec.parameters}' "$INDIR/policy.yaml"
 }
 
+
+# Pod Deployment Job ReplicationController ReplicaSet DaemonSet StatefulSet CronJob Bucket HelmChart HelmRelease HelmRepository Namespace NetworkPolicy PersistentVolume ClusterRoleBinding Role ClusterRole ServiceAccount Service
+
+# rules:
+#   - apiGroups: ""
+#     apiVersions: "v1"
+#     resources: ["pods", "namespaces", "services", "serviceaccounts", "persistentvolumes", "replicationcontrollers"]
+#     operations: ["CREATE", "UPDATE"]
+#   - apiGroups: "apps"
+#     apiVersions: "v1"
+#     resources: ["deployments", "replicasets", "daemonsets", "statefulsets"]
+#     operations: ["CREATE", "UPDATE"]
+#   - apiGroups: "batch"
+#     apiVersions: "v1"
+#     resources: ["jobs", "cronjobs"]
+#     operations: ["CREATE", "UPDATE"]
+#   - apiGroups: "networking.k8s.io"
+#     apiVersions: "v1"
+#     resources: ["networkpolicies"]
+#     operations: ["CREATE", "UPDATE"]
+#   - apiGroups: "helm.toolkit.fluxcd.io"
+#     apiVersions: "v2"
+#     resources: ["helmreleases"]
+#     operations: ["CREATE", "UPDATE"]
+#   - apiGroups: "source.toolkit.fluxcd.io"
+#     apiVersions: "v1"
+#     resources: ["buckets", "helmcharts", "helmrepositories"]
+#     operations: ["CREATE", "UPDATE"]
+#   - apiGroups: "rbac.authorization.k8s.io"
+#     apiVersions: "v1"
+#     resources: ["clusterrolebindings", "roles", "clusterroles"]
+#     operations: ["CREATE", "UPDATE"]
+
+# Get crds for flux (helmreleases, buckets, helmcharts, helmrepositories)
+# kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
+
+# pods                    v1                            Pod
+# namespaces              v1                            Namespace
+# services                v1                            Service
+# serviceaccounts         v1                            ServiceAccount
+# persistentvolumes       v1                            PersistentVolume
+# replicationcontrollers  v1                            ReplicationController
+# deployments             apps/v1                       Deployment
+# replicasets             apps/v1                       ReplicaSet
+# daemonsets              apps/v1                       DaemonSet
+# statefulsets            apps/v1                       StatefulSet
+# jobs                    batch/v1                      Job
+# cronjobs                batch/v1                      CronJob
+# networkpolicies         networking.k8s.io/v1          NetworkPolicy
+# helmreleases            helm.toolkit.fluxcd.io/v2     HelmRelease
+# buckets                 source.toolkit.fluxcd.io/v1   Bucket
+# helmcharts              source.toolkit.fluxcd.io/v1   HelmChart
+# helmrepositories        source.toolkit.fluxcd.io/v1   HelmRepository
+# clusterrolebindings     rbac.authorization.k8s.io/v1  ClusterRoleBinding
+# roles                   rbac.authorization.k8s.io/v1  Role
+# clusterroles            rbac.authorization.k8s.io/v1  ClusterRole
+
+
 do_metadata() {
-    # Fix hardcoded rules
-    yq '{"rules": [{
-        "apiGroups": [""],
-        "apiVersions": ["v1"],
-        "resources": ["*"],
-        "operations": ["CREATE", "UPDATE", "DELETE"]
-    }]}' "$INDIR/policy.yaml"
+    yq '{"rules":
+        # Define the target kinds from the input spec
+        .spec.targets.kinds as $targetKinds |
+
+        # Load the kinds mapping from the separate YAML file
+        load("data/kinds-mapping.yaml").kinds_mapping as $kindMap |
+
+        # Create an array of matched kinds
+        [
+            $targetKinds[] |
+            select($kindMap[.]) |
+            {"name": ., "details": $kindMap[.]}
+        ] |
+
+        # Group by API group
+        group_by(.details.apiGroup) |
+
+        # Transform each group
+        map({
+            "apiGroups": [.[0].details.apiGroup],
+            "apiVersions": [.[0].details.apiVersion],
+            "resources": [map(.details.resource)[]],
+            "operations": ["CREATE", "UPDATE"]
+        })}
+    ' "$INDIR/policy.yaml"
 
     yq '{
         "mutating": false,
@@ -82,12 +158,11 @@ do_metadata() {
         "io.kubewarden.policy.category": (.spec.category | sub("weave.categories."; "")),
         "io.kubewarden.policy.severity": .spec.severity
         } + (
-        .spec.standards | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries
+        .spec.standards // [] | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries
         )
     )}' "$INDIR/policy.yaml"
 
-
-    # yq '.spec.standards | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries' "$INDIR/policy.yaml"
+    # io.artifacthub.keywords: compliance, SSH, containers
 
     # yq '.spec.standards | map({"io.kubewarden.policy.standards." + (.id |  sub("weave.standards.";"")): (.controls | map(sub("weave.controls."; "")) | join(", "))})' "$INDIR/policy.yaml"
 
@@ -96,27 +171,19 @@ do_metadata() {
     # {"io.kubewarden.policy.standards." + .id: (.controls | map(sub("weave.controls."; "")) | join(", "))}
     # ) | add' input.yaml
 
-
-    # yq '
-    # to_entries |
-    # map({
-    #     "io.kubewarden.policy.standards.\(.key | split(".")[-1])":
-    #     .value.controls |
-    #     map(split(".")[-1]) |
-    #     join(", ")
-    # }) | reduce .[] as $item ({}; . * $item)' "$INDIR/policy.yaml"
-
     # yq 'with(
     # .spec.standards[];
     # .id as $id |
     # {"("io.kubewarden.policy.standards." + ($id | split(".")[-1]))": (.controls | map(sub("weave.controls."; "")) | join(", "))}
     # ) | add' "$INDIR/policy.yaml"
-
-    # io.artifacthub.keywords: compliance, SSH, containers
-    # yq '{"annotations": {"io.kubewarden.policy.standards": .spec.standards }}' "$INDIR/policy.yaml"
 }
 
 # ==================================================================================================
+
+# TODOs
+# Use tags?
+# tags: [pci-dss, cis-benchmark, mitre-attack, nist800-190, gdpr, default]
+
 
 POLICIES="ControllerContainerBlockSSHPort"
 
@@ -128,24 +195,32 @@ for pol in $POLICIES; do
     test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
     mkdir -p "$OUTDIR"
 
-    info "Insert makefile"
-    cp "$DATADIR/Makefile" "$OUTDIR/"
-
     info "Compile readme"
     do_readme > "$OUTDIR/README.md"
 
     info "Compile metadata"
     do_metadata | tee "$OUTDIR/metadata.yml"
+    # TODO: this replaces already set category, expected?
+    if grep -w "$pol" "$INDIR/../../goodpractices/kubernetes/rbac/secrets/kustomization.yaml" > /dev/null; then
+        yq -i '.annotations."io.kubewarden.policy.category" = "Best practices RBAC"' "$OUTDIR/metadata.yml"
+    fi
 
     info "Adapt policy.rego"
     sed 's/^package weave.*/package policy/' "$INDIR/policy.rego" > "$OUTDIR/policy.rego"
 
-    info "Reuse tests"
+    info "Use tests"
     cp -r "$INDIR/tests" "$OUTDIR/"
+    cd "$OUTDIR/"; make tests; cd -
+
+    info "Use makefile"
+    cp "$DATADIR/Makefile" "$OUTDIR/"
+    cd "$OUTDIR"
+    VERSION=0.0.1 make artifacthub-pkg.yml
+    make policy.wasm annotated-policy.wasm
+    cd -
 
     info "Done."
 
-    # info "artifacthub-pkg.yml"
 done
 
 

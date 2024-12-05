@@ -1,0 +1,86 @@
+kinds_mapping:
+  Pod: 
+    apiGroup: ""
+    apiVersion: v1
+    resource: pods
+  Namespace: 
+    apiGroup: ""
+    apiVersion: v1
+    resource: namespaces
+  Service: 
+    apiGroup: ""
+    apiVersion: v1
+    resource: services
+  ServiceAccount: 
+    apiGroup: ""
+    apiVersion: v1
+    resource: serviceaccounts
+  PersistentVolume: 
+    apiGroup: ""
+    apiVersion: v1
+    resource: persistentvolumes
+  ReplicationController: 
+    apiGroup: ""
+    apiVersion: v1
+    resource: replicationcontrollers
+  
+  Deployment: 
+    apiGroup: apps
+    apiVersion: v1
+    resource: deployments
+  ReplicaSet: 
+    apiGroup: apps
+    apiVersion: v1
+    resource: replicasets
+  DaemonSet: 
+    apiGroup: apps
+    apiVersion: v1
+    resource: daemonsets
+  StatefulSet: 
+    apiGroup: apps
+    apiVersion: v1
+    resource: statefulsets
+  
+  Job: 
+    apiGroup: batch
+    apiVersion: v1
+    resource: jobs
+  CronJob: 
+    apiGroup: batch
+    apiVersion: v1
+    resource: cronjobs
+  
+  NetworkPolicy: 
+    apiGroup: networking.k8s.io
+    apiVersion: v1
+    resource: networkpolicies
+  
+  HelmRelease: 
+    apiGroup: helm.toolkit.fluxcd.io
+    apiVersion: v2
+    resource: helmreleases
+  Bucket: 
+    apiGroup: source.toolkit.fluxcd.io
+    apiVersion: v1
+    resource: buckets
+  HelmChart: 
+    apiGroup: source.toolkit.fluxcd.io
+    apiVersion: v1
+    resource: helmcharts
+  HelmRepository: 
+    apiGroup: source.toolkit.fluxcd.io
+    apiVersion: v1
+    resource: helmrepositories
+  
+  ClusterRoleBinding: 
+    apiGroup: rbac.authorization.k8s.io
+    apiVersion: v1
+    resource: clusterrolebindings
+  Role: 
+    apiGroup: rbac.authorization.k8s.io
+    apiVersion: v1
+    resource: roles
+  ClusterRole: 
+    apiGroup: rbac.authorization.k8s.io
+    apiVersion: v1
+    resource: clusterroles
