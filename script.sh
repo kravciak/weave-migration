@@ -29,12 +29,8 @@ trap 'trap_exit' EXIT
 # ==================================================================================================
 # Variables & Functions
 
-: ${BASEDIR:=$PWD}
-: ${DATADIR:=$BASEDIR/data}
-exec &>> ${OUTPUT:=$BASEDIR/script.log}
-
-# Use parameter as policy name or target all policies
-POLICIES="${1:-$(cat $DATADIR/policies.txt)}"
+: ${DATADIR:=$PWD/data}
+exec &>> ${OUTPUT:=$PWD/script.log}
 
 do_readme() {
     yq '"# " + .spec.name' "$INDIR/policy.yaml"
@@ -48,19 +44,45 @@ do_readme() {
     echo "# Settings"
     echo
     echo "Rego parameters:"
+    echo '```yaml'
+    yq '{"settings":{"parameters": .spec.parameters}}' "$INDIR/policy.yaml" | sed 's/^/  /'
+    echo '```'
     echo
 
-    yq '{"settings": .spec.parameters}' "$INDIR/policy.yaml"
+    echo "# Resources"
+    echo "Policy applies to resources kinds:"
+    yq '.spec.targets.kinds | map("`" + . + "`") | join(", ")' "$INDIR/policy.yaml"
 }
 
+# Get crds for flux (helmreleases, buckets, helmcharts, helmrepositories, kustomizations, ...)
+# kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
+
 do_metadata() {
-    # Fix hardcoded rules
-    yq '{"rules": [{
-        "apiGroups": [""],
-        "apiVersions": ["v1"],
-        "resources": ["*"],
-        "operations": ["CREATE", "UPDATE", "DELETE"]
-    }]}' "$INDIR/policy.yaml"
+    yq '{"rules":
+        # Define the target kinds from the input spec
+        .spec.targets.kinds as $targetKinds |
+
+        # Load the kinds mapping from the separate YAML file
+        load("data/kinds-mapping.yaml").kinds_mapping as $kindMap |
+
+        # Create an array of matched kinds
+        [
+            $targetKinds[] |
+            select($kindMap[.]) |
+            {"name": ., "details": $kindMap[.]}
+        ] |
+
+        # Group by API group
+        group_by(.details.apiGroup) |
+
+        # Transform each group
+        map({
+            "apiGroups": [.[0].details.apiGroup] | . style="flow",
+            "apiVersions": [.[0].details.apiVersion] | . style="flow",
+            "resources": [map(.details.resource)[]] | . style="flow",
+            "operations": ["CREATE", "UPDATE"] | . style="flow"
+        })}
+    ' "$INDIR/policy.yaml"
 
     yq '{
         "mutating": false,
@@ -68,26 +90,27 @@ do_metadata() {
         "backgroundAudit": true
     }' "$INDIR/policy.yaml"
 
+    # select(.spec.tags | any) | "io.artifacthub.keywords": .spec.tags | join(", "),
+    # "io.artifacthub.keywords": .spec.tags | select(length > 0) | join(", "),
     yq '{"annotations": (
         {
-        "io.kubewarden.policy.title": (.spec.id | sub("weave.policies."; "")),
         "io.artifacthub.displayName": .spec.name,
-        "io.kubewarden.policy.description": .spec.description | from_yaml,
+        # "io.artifacthub.keywords": .spec.tags // [] | join(", "),
         "io.artifacthub.resources": .spec.targets.kinds | join(", "),
+        "io.kubewarden.policy.title": .spec.id | sub("weave.(policies|templates)."; ""),
+        "io.kubewarden.policy.description": .spec.description, # TODO: fix newlines
         "io.kubewarden.policy.author": "Kubewarden developers <cncf-kubewarden-maintainers@lists.cncf.io>",
-        "io.kubewarden.policy.ociUrl": "ghcr.io/kubewarden/policies/" + (.spec.id | sub("weave.policies."; "")),
+        "io.kubewarden.policy.ociUrl": "ghcr.io/kubewarden/policies/" + .spec.id | sub("weave.(policies|templates)."; ""),
         "io.kubewarden.policy.url": "https://github.com/kubewarden/rego-policies",
         "io.kubewarden.policy.source": "https://github.com/kubewarden/rego-policies",
         "io.kubewarden.policy.license": "Apache-2.0",
-        "io.kubewarden.policy.category": (.spec.category | sub("weave.categories."; "")),
+        "io.kubewarden.policy.category": .spec.category | sub("weave.categories."; ""),
         "io.kubewarden.policy.severity": .spec.severity
-        } + (
-        .spec.standards | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries
-        )
+        }
+        # + ({key "io.artifacthub.keywords": .spec.tags | select(length != 0) | join(", ")} | from_entries)
+        + (.spec.standards // [] | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries)
     )}' "$INDIR/policy.yaml"
 
-
-    # yq '.spec.standards | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries' "$INDIR/policy.yaml"
 
     # yq '.spec.standards | map({"io.kubewarden.policy.standards." + (.id |  sub("weave.standards.";"")): (.controls | map(sub("weave.controls."; "")) | join(", "))})' "$INDIR/policy.yaml"
 
@@ -96,76 +119,52 @@ do_metadata() {
     # {"io.kubewarden.policy.standards." + .id: (.controls | map(sub("weave.controls."; "")) | join(", "))}
     # ) | add' input.yaml
 
-
-    # yq '
-    # to_entries |
-    # map({
-    #     "io.kubewarden.policy.standards.\(.key | split(".")[-1])":
-    #     .value.controls |
-    #     map(split(".")[-1]) |
-    #     join(", ")
-    # }) | reduce .[] as $item ({}; . * $item)' "$INDIR/policy.yaml"
-
     # yq 'with(
     # .spec.standards[];
     # .id as $id |
     # {"("io.kubewarden.policy.standards." + ($id | split(".")[-1]))": (.controls | map(sub("weave.controls."; "")) | join(", "))}
     # ) | add' "$INDIR/policy.yaml"
-
-    # io.artifacthub.keywords: compliance, SSH, containers
-    # yq '{"annotations": {"io.kubewarden.policy.standards": .spec.standards }}' "$INDIR/policy.yaml"
 }
 
 # ==================================================================================================
 
-POLICIES="ControllerContainerBlockSSHPort"
+# Use parameter as policy name or target all policies/examples
+POLICIES="${1:-$(grep -hv ^# $DATADIR/policies.txt $DATADIR/examples.txt)}"
 
 for pol in $POLICIES; do
-    INDIR="$BASEDIR/input/policies/$pol"
-    OUTDIR="$BASEDIR/output/$pol"
+    INDIR="$(find input/ -type d -name $pol)"
+    OUTDIR="output/$pol"
 
-    step "$pol"
     test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
+    ls $INDIR/tests/*.rego &>/dev/null || { echo "Policy without tests"; continue; }
+    yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null || { echo "Policy without rules"; continue; }
+
+    step "$pol [${INDIR%\/$pol}]"
     mkdir -p "$OUTDIR"
-
-    info "Insert makefile"
     cp "$DATADIR/Makefile" "$OUTDIR/"
+    cp "$INDIR/policy.rego" "$OUTDIR/"
+    cp -r "$INDIR/tests/" "$OUTDIR/"
+    sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
+    sed -Ei 's/^(import data).weave.*(.violation)/\1.policy\2/; s/^(import data).weave.*/\1.policy/' "$OUTDIR/tests/"*.rego
 
-    info "Compile readme"
-    do_readme > "$OUTDIR/README.md"
+    info "Create readme"
+    do_readme | tee "$OUTDIR/README.md"
 
-    info "Compile metadata"
+    info "Create metadata"
     do_metadata | tee "$OUTDIR/metadata.yml"
+    sed -i '/io.kubewarden.policy.standards/ s/i/# i/' "$OUTDIR/metadata.yml" # Comment out standards
+    yq -i 'del(.annotations."io.artifacthub.keywords" | select(. == ""))' "$OUTDIR/metadata.yml" # Remove empty keywords
+    if grep -w "$pol" "$INDIR/../../goodpractices/kubernetes/rbac/secrets/kustomization.yaml" > /dev/null; then
+        yq -i '.annotations."io.kubewarden.policy.category" = "Best practices RBAC"' "$OUTDIR/metadata.yml"
+    fi
 
-    info "Adapt policy.rego"
-    sed 's/^package weave.*/package policy/' "$INDIR/policy.rego" > "$OUTDIR/policy.rego"
+    info "Test and build"
+    make -C "$OUTDIR" test
+    make -C "$OUTDIR" artifacthub-pkg.yml VERSION=0.0.1
+    make -C "$OUTDIR" policy.wasm annotated-policy.wasm
+    # opa test "$OUTDIR" -v --ignore '*.yml','*.yaml','.md','.csv'
+    # ./test_policies --policy-path $pol # polctl
 
-    info "Reuse tests"
-    cp -r "$INDIR/tests" "$OUTDIR/"
-
-    info "Done."
-
-    # info "artifacthub-pkg.yml"
 done
 
-
-#   Reuse our OPA Rego Makefile from disallow-service-loadbalander-policy. Should be
-# adapted to run rego tests with opa from ./tests. Not all policies have a
-# ./tests/policy_test.rego.
-#  Compile a README.md from policy.yaml, by reusing the following fields in a template:
-#  metadata.name with weave.policies prefix removed.
-#  spec.name, description, how_to_solve, tags.
-#  Compile a metadata.yml from policy.yaml, by reusing the following fields from the Weaveworks policy:
-# - spec.id, without the prefix weave.policies, as annotations
-# io.kubewarden.policy.title, io.kubewarden.policy.ociUrl:  ghcr.io/kubewarden/policies/<id>, io.kubewarden.policy.url: https://github.com/kubewarden/<id>.
-# - io.kubewarden.policy.url and io.kubewarden.policy.source hardcoded to the Rego monorepo for these policies. (e.g: https://github.com/kubewarden/rego-policies).
-# - spec.category as annotations io.kubewarden.policy.category, without prefix weave.category.
-# - spec.severity as annotations io.kubewarden.policy.severity
-# - spec.standards as annotation io.kubewarden.policy.standards, where each
-# element in the controls array is a new annotation, and it is commented out until we evaluate further. The list of available standards are in ./standards (example).
-# - spec.description as annotation io.kubewarden.policy.description
-# - spec.targets into rules and the annotation io.artifacthub.resources by computing the list of resources. This translation is not trivial.
-#  Adapt the policy.rego:
-# Use the same package for all rego files, including tests (e.g: package policy).
-#  Reuse ./tests/, which will get run by the make tests
-#  artifacthub-pkg.yml following artifacthub docs. Generated by our Makefile.
+step "Done."

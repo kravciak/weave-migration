@@ -1,4 +1,4 @@
-package weave.advisor.containers.block_port
+package policy
 
 test_exclude_namespace {
 	testcase = {
