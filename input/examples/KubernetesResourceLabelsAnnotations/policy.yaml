@@ -1,0 +1,37 @@
+apiVersion: pac.weave.works/v2beta2
+kind: Policy
+metadata:
+  name: weave.policies.resource-labels-annotations
+spec:
+  id: weave.policies.resource-labels-annotations
+  name: Resource Labels and Annotations
+  enabled: true
+  description: "All resources must have the specified labels and annotations."
+  how_to_solve: "Add the required labels and annotations to the resource."
+  category: weave.categories.organizational-standards
+  severity: medium
+  targets:
+    kinds: [HelmRelease, GitRepository, OCIRepository, Bucket, HelmChart, HelmRepository, Kustomization]
+  tags: [flux]
+  parameters:
+    - name: labels
+      type: object
+      required: true
+      value:
+    - name: annotations
+      type: object
+      required: true
+      value:
+    - name: exclude_namespaces
+      type: array
+      required: false
+      value: []
+    - name: exclude_label_key
+      type: string
+      required: false
+      value:
+    - name: exclude_label_value
+      type: string
+      required: false
+      value:
+  code: "    package weave.advisor.resource_labels_annotations\n\n    import future.keywords.in\n\n    labels := input.parameters.labels\n    annotations := input.parameters.annotations\n    exclude_namespaces := input.parameters.exclude_namespaces\n    exclude_label_key := input.parameters.exclude_label_key\n    exclude_label_value := input.parameters.exclude_label_value\n \n\n    violation[result] {\n        isExcludedNamespace == false\n        not exclude_label_value == controller_metadata.labels[exclude_label_key]\n        label := labels[_]\n        not controller_metadata.labels[label.key] == label.value\n        result = {\n            \"issue_detected\": true,\n            \"msg\": sprintf(\"The resource '%s' must have the label '%s' with value '%s'\", [controller_metadata.name, label.key, label.value]),\n            \"violating_key\": sprintf(\"metadata.labels.%s\", [label.key])\n        }\n    }\n\n    violation[result] {\n        isExcludedNamespace == false\n        not exclude_label_value == controller_metadata.labels[exclude_label_key]\n        annotation := annotations[_]\n        not controller_metadata.annotations[annotation.key] == annotation.value\n        result = {\n            \"issue_detected\": true,\n            \"msg\": sprintf(\"The resource '%s' must have the annotation '%s' with value '%s'\", [controller_metadata.name, annotation.key, annotation.value]),\n            \"violating_key\": sprintf(\"metadata.annotations.%s\", [annotation.key])\n        }\n    }\n\n    # Controller input\n    controller_input = input.review.object\n\n    controller_metadata = controller_input.metadata {\n      contains_kind(controller_input.kind, [\"HelmRelease\", \"GitRepository\", \"OCIRepository\", \"Bucket\", \"HelmChart\", \"HelmRepository\", \"Kustomization\"])\n    }\n\n    contains_kind(kind, kinds) {\n    kinds[_] = kind\n    }\n\n    isExcludedNamespace = true {\n      controller_metadata.namespace\n      controller_metadata.namespace in exclude_namespaces\n    } else = false\n"
