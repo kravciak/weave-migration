@@ -54,8 +54,8 @@ do_readme() {
     echo
 
     echo "# Tags"
-    echo "Policy applies to the following resources:"
-    yq '.spec.targets.kinds | join(", ")' "$INDIR/policy.yaml"
+    echo -n "Policy applies to following resources:"
+    yq '.spec.targets.kinds | map("`" + . + "`") | join(", ")' "$INDIR/policy.yaml"
 
 }
 
