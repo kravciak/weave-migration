@@ -146,10 +146,11 @@ do_metadata() {
 
     yq '{"annotations": (
         {
-        "io.kubewarden.policy.title": (.spec.id | sub("weave.policies."; "")),
         "io.artifacthub.displayName": .spec.name,
-        "io.kubewarden.policy.description": .spec.description | from_yaml,
+        "io.artifacthub.keywords": .spec.tags | join(", "),
         "io.artifacthub.resources": .spec.targets.kinds | join(", "),
+        "io.kubewarden.policy.title": (.spec.id | sub("weave.policies."; "")),
+        "io.kubewarden.policy.description": .spec.description | from_yaml,
         "io.kubewarden.policy.author": "Kubewarden developers <cncf-kubewarden-maintainers@lists.cncf.io>",
         "io.kubewarden.policy.ociUrl": "ghcr.io/kubewarden/policies/" + (.spec.id | sub("weave.policies."; "")),
         "io.kubewarden.policy.url": "https://github.com/kubewarden/rego-policies",
@@ -158,11 +159,10 @@ do_metadata() {
         "io.kubewarden.policy.category": (.spec.category | sub("weave.categories."; "")),
         "io.kubewarden.policy.severity": .spec.severity
         } + (
-        .spec.standards // [] | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries
+        .spec.standards // [] | map({"key": "# io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries
         )
     )}' "$INDIR/policy.yaml"
 
-    # io.artifacthub.keywords: compliance, SSH, containers
 
     # yq '.spec.standards | map({"io.kubewarden.policy.standards." + (.id |  sub("weave.standards.";"")): (.controls | map(sub("weave.controls."; "")) | join(", "))})' "$INDIR/policy.yaml"
 

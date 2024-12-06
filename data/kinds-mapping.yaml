@@ -1,86 +1,98 @@
 kinds_mapping:
-  Pod: 
+  Pod:
     apiGroup: ""
     apiVersion: v1
     resource: pods
-  Namespace: 
+  Namespace:
     apiGroup: ""
     apiVersion: v1
     resource: namespaces
-  Service: 
+  Service:
     apiGroup: ""
     apiVersion: v1
     resource: services
-  ServiceAccount: 
+  ServiceAccount:
     apiGroup: ""
     apiVersion: v1
     resource: serviceaccounts
-  PersistentVolume: 
+  PersistentVolume:
     apiGroup: ""
     apiVersion: v1
     resource: persistentvolumes
-  ReplicationController: 
+  ReplicationController:
     apiGroup: ""
     apiVersion: v1
     resource: replicationcontrollers
-  
-  Deployment: 
+
+  Deployment:
     apiGroup: apps
     apiVersion: v1
     resource: deployments
-  ReplicaSet: 
+  ReplicaSet:
     apiGroup: apps
     apiVersion: v1
     resource: replicasets
-  DaemonSet: 
+  DaemonSet:
     apiGroup: apps
     apiVersion: v1
     resource: daemonsets
-  StatefulSet: 
+  StatefulSet:
     apiGroup: apps
     apiVersion: v1
     resource: statefulsets
-  
-  Job: 
+
+  Job:
     apiGroup: batch
     apiVersion: v1
     resource: jobs
-  CronJob: 
+  CronJob:
     apiGroup: batch
     apiVersion: v1
     resource: cronjobs
-  
-  NetworkPolicy: 
+
+  NetworkPolicy:
     apiGroup: networking.k8s.io
     apiVersion: v1
     resource: networkpolicies
-  
-  HelmRelease: 
+
+  HelmRelease:
     apiGroup: helm.toolkit.fluxcd.io
     apiVersion: v2
     resource: helmreleases
-  Bucket: 
+  Bucket:
     apiGroup: source.toolkit.fluxcd.io
     apiVersion: v1
     resource: buckets
-  HelmChart: 
+  HelmChart:
     apiGroup: source.toolkit.fluxcd.io
     apiVersion: v1
     resource: helmcharts
-  HelmRepository: 
+  HelmRepository:
     apiGroup: source.toolkit.fluxcd.io
     apiVersion: v1
     resource: helmrepositories
-  
-  ClusterRoleBinding: 
+  GitRepository:
+    apiGroup: source.toolkit.fluxcd.io
+    apiVersion: v1
+    resource: gitrepositories
+  OCIRepository:
+    apiGroup: source.toolkit.fluxcd.io
+    apiVersion: v1beta2
+    resource: ocirepositories
+  Kustomization:
+    apiGroup: kustomize.toolkit.fluxcd.io
+    apiVersion: v1
+    resource: kustomizations
+
+  ClusterRoleBinding:
     apiGroup: rbac.authorization.k8s.io
     apiVersion: v1
     resource: clusterrolebindings
-  Role: 
+  Role:
     apiGroup: rbac.authorization.k8s.io
     apiVersion: v1
     resource: roles
-  ClusterRole: 
+  ClusterRole:
     apiGroup: rbac.authorization.k8s.io
     apiVersion: v1
     resource: clusterroles
