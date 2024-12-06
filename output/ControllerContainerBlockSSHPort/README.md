@@ -16,7 +16,7 @@ Make sure you are not exposing ssh port on containers.
 # Settings
 
 Rego parameters:
-
+```yaml
 settings:
   - name: container_port
     type: integer
@@ -34,3 +34,8 @@ settings:
     type: string
     required: false
     value:
+```
+
+# Tags
+Policy applies to the following resources:
+Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
