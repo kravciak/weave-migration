@@ -7,15 +7,13 @@
 version: 0.0.1
 name: kustomization-var-substitution
 displayName: Kustomization Var Substitution
-createdAt: 2024-12-09T12:30:43.851386312Z
+createdAt: 2024-12-09T17:17:53.783371421Z
 description: The property 'spec.postBuild.substitute.var_substitution_enabled' must be disabled.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
   image: ghcr.io/kubewarden/policies/kustomization-var-substitution:v0.0.1
-keywords:
-- flux
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm

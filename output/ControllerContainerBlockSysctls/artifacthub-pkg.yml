@@ -7,20 +7,13 @@
 version: 0.0.1
 name: container-block-sysctl
 displayName: Container Block Sysctls
-createdAt: 2024-12-09T12:30:37.23085619Z
+createdAt: 2024-12-09T17:17:43.128116181Z
 description: "Setting sysctls can allow containers unauthorized escalated privileges to a Kubernetes node. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
   image: ghcr.io/kubewarden/policies/container-block-sysctl:v0.0.1
-keywords:
-- pci-dss
-- cis-benchmark
-- mitre-attack
-- nist800-190
-- gdpr
-- default
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm

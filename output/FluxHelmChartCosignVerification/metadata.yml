@@ -8,7 +8,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: HelmChart Cosign Verification
-  io.artifacthub.keywords: flux
   io.artifacthub.resources: HelmChart
   io.kubewarden.policy.title: helm-chart-cosign-verification
   io.kubewarden.policy.description: "HelmChart objects must provide cosign verification and reference a secret containing the Cosign public keys of trusted authors"

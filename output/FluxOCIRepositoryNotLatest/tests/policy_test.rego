@@ -1,7 +1,7 @@
 package policy
 
 import future.keywords.in
-import data.weave.advisor.ocirepository_not_latest
+package policy
 
 test_not_latest_tag {
     testcase := {

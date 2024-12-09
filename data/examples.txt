@@ -51,7 +51,7 @@ IstioGatewayHosts
 IstioNamespaceLabelInjection
 KubernetesKubeletVersion
 KubernetesProhibitKind
-KubernetesResourceLabelsAnnotations
+#KubernetesResourceLabelsAnnotations
 NamespaceLimitRangeMinMax
 NamespacePodQuota
 NamespaceResourceQuotas

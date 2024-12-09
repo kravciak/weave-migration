@@ -1,6 +1,6 @@
 package policy
 
-import data.weave.advisor.rbac.prohibit_wildcard_secrets.violation
+package policy
 
 test_valid_cluster_role {
   testcase = {

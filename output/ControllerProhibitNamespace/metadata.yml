@@ -16,7 +16,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: Containers Should Not Run In Namespace
-  io.artifacthub.keywords: cis-benchmark, soc2-type1
   io.artifacthub.resources: Pod, Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
   io.kubewarden.policy.title: containers-should-not-run-in-namespace
   io.kubewarden.policy.description: "This Policy ensure workloads are not running in a specified namespace. \n"

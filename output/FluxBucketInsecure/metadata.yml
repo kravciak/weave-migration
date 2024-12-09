@@ -8,7 +8,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: Bucket Insecure Connections
-  io.artifacthub.keywords: flux
   io.artifacthub.resources: Bucket
   io.kubewarden.policy.title: bucket-insecure-connections
   io.kubewarden.policy.description: "Ensure that Bucket objects do not use insecure connections"

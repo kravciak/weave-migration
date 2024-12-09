@@ -8,7 +8,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: Kustomization Var Substitution
-  io.artifacthub.keywords: flux
   io.artifacthub.resources: Kustomization
   io.kubewarden.policy.title: kustomization-var-substitution
   io.kubewarden.policy.description: "The property 'spec.postBuild.substitute.var_substitution_enabled' must be disabled."

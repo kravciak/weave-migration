@@ -7,16 +7,13 @@
 version: 0.0.1
 name: containers-should-not-run-in-namespace
 displayName: Containers Should Not Run In Namespace
-createdAt: 2024-12-09T12:30:41.236889148Z
+createdAt: 2024-12-09T17:17:50.189307942Z
 description: "This Policy ensure workloads are not running in a specified namespace. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
   image: ghcr.io/kubewarden/policies/containers-should-not-run-in-namespace:v0.0.1
-keywords:
-- cis-benchmark
-- soc2-type1
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm

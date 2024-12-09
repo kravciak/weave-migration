@@ -1,6 +1,6 @@
 package policy
 
-import data.weave.advisor.helm_release_rollback.violation
+package policy
 
 test_valid_rollback_disabled {
   testcase = {

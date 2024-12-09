@@ -16,7 +16,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: Containers Block Ssh Port
-  io.artifacthub.keywords: pci-dss
   io.artifacthub.resources: Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
   io.kubewarden.policy.title: containers-block-ssh-port
   io.kubewarden.policy.description: |

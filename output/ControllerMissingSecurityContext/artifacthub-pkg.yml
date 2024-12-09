@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-missing-security-context
 displayName: Containers Missing Security Context
-createdAt: 2024-12-09T12:30:40.935000576Z
+createdAt: 2024-12-09T17:17:49.611170254Z
 description: |
   This Policy checks if the container is missing securityContext while there is no securityContext defined on the Pod level as well. The security settings that are specified on the Pod level apply to all containers in the Pod.
 license: Apache-2.0
@@ -15,13 +15,6 @@ homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
   image: ghcr.io/kubewarden/policies/containers-missing-security-context:v0.0.1
-keywords:
-- pci-dss
-- cis-benchmark
-- mitre-attack
-- nist800-190
-- gdpr
-- default
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm

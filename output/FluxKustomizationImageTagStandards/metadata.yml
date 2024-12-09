@@ -8,7 +8,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: Kustomization Image Tag Standards
-  io.artifacthub.keywords: flux
   io.artifacthub.resources: Kustomization
   io.kubewarden.policy.title: kustomization-image-tag-standards
   io.kubewarden.policy.description: "spec.Images must comply with image tag/semver reference standards."

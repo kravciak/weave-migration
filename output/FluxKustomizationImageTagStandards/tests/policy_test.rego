@@ -1,7 +1,7 @@
 package policy
 
 import future.keywords.in
-import data.weave.advisor.kustomization_image_tag_standards
+package policy
 
 test_valid_image_tag {
     testcase := {

@@ -7,15 +7,13 @@
 version: 0.0.1
 name: ocirepository-cosign-verification
 displayName: OCIRepository Cosign Verification
-createdAt: 2024-12-09T12:30:44.131028239Z
+createdAt: 2024-12-09T17:17:54.103167776Z
 description: OCIRepository resources must provide Cosign verification and reference a specific key.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
   image: ghcr.io/kubewarden/policies/ocirepository-cosign-verification:v0.0.1
-keywords:
-- flux
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm

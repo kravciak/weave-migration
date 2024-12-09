@@ -1,6 +1,6 @@
 package policy
 
-import data.weave.advisor.helm_release_post_renderer.violation
+package policy
 
 test_valid_no_post_renderer {
   testcase = {

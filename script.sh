@@ -33,9 +33,6 @@ trap 'trap_exit' EXIT
 : ${DATADIR:=$BASEDIR/data}
 exec &>> ${OUTPUT:=$BASEDIR/script.log}
 
-# Use parameter as policy name or target all policies
-POLICIES="${1:-$(cat $DATADIR/policies.txt)}"
-
 do_readme() {
     yq '"# " + .spec.name' "$INDIR/policy.yaml"
     echo
@@ -111,7 +108,7 @@ do_metadata() {
         "io.kubewarden.policy.category": .spec.category | sub("weave.categories."; ""),
         "io.kubewarden.policy.severity": .spec.severity
         }
-        + ({key "io.artifacthub.keywords": .spec.tags | select(length != 0) | join(", ")} | from_entries)
+        # + ({key "io.artifacthub.keywords": .spec.tags | select(length != 0) | join(", ")} | from_entries)
         + (.spec.standards // [] | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries)
     )}' "$INDIR/policy.yaml"
 
@@ -132,22 +129,26 @@ do_metadata() {
 
 # ==================================================================================================
 
-# TODOs
+# Use parameter as policy name or target all policies/examples
+POLICIES="${1:-$(grep -hv ^# $DATADIR/policies.txt $DATADIR/examples.txt)}"
 
 for pol in $POLICIES; do
-    INDIR="$BASEDIR/input/policies/$pol"
+    INDIR="$BASEDIR/$(find input/ -type d -name $pol)"
     OUTDIR="$BASEDIR/output/$pol"
 
     step "$pol"
     test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
     ls $INDIR/tests/*.rego &>/dev/null || { warn "Policy without tests"; continue; }
+    yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null || { warn "Policy without rules"; continue; }
 
     info "Init files"
     mkdir -p "$OUTDIR"
     cp "$DATADIR/Makefile" "$OUTDIR/"
     cp "$INDIR/policy.rego" "$OUTDIR/"
     cp -r "$INDIR/tests/" "$OUTDIR/"
-    sed -i 's/^package weave.advisor.*/package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
+    sed -Ei 's/^(\s*)(package|import) (data.)?weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
+    # sed -Ei 's/^(\s+)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
+    # sed -i 's/^package weave.advisor.*/package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
 
     info "Create readme"
     do_readme | tee "$OUTDIR/README.md"

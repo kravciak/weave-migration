@@ -8,7 +8,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: HelmChart Values File Format
-  io.artifacthub.keywords: flux
   io.artifacthub.resources: HelmChart
   io.kubewarden.policy.title: helm-chart-values-files-format
   io.kubewarden.policy.description: "HelmChart must reference values files in the following format: 'xxx=values.yaml'."

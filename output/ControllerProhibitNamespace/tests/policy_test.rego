@@ -1,6 +1,6 @@
 package policy
 
-import data.weave.advisor.pods.containers_not_namespace.violation
+package policy
 
 test_valid_case {
   testcase = {

@@ -1,7 +1,7 @@
 package policy
 
 import future.keywords.in
-import data.weave.advisor.kustomization_var_substitution
+package policy
 
 test_var_substitution_disabled {
     testcase := {

@@ -8,7 +8,6 @@ executionMode: gatekeeper
 backgroundAudit: true
 annotations:
   io.artifacthub.displayName: Helm Release Post Renderer
-  io.artifacthub.keywords: flux
   io.artifacthub.resources: HelmRelease
   io.kubewarden.policy.title: helm-release-post-renderer
   io.kubewarden.policy.description: "HelmRelease must not have post-renderers enabled."
