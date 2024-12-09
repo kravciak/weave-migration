@@ -1,7 +1,7 @@
 package policy
 
 import future.keywords.in
-package policy
+import data.policy
 
 test_predefined_media_and_operation {
     testcase := {

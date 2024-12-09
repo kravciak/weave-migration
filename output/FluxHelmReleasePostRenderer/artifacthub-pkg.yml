@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-release-post-renderer
 displayName: Helm Release Post Renderer
-createdAt: 2024-12-09T17:17:52.442311478Z
+createdAt: 2024-12-09T23:38:52.395943918Z
 description: HelmRelease must not have post-renderers enabled.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

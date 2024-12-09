@@ -1,6 +1,6 @@
 package policy
 
-package policy
+import data.policy.violation
 
 test_valid_helm_repo_url {
   testcase = {

@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kustomization-target-namespace
 displayName: Kustomization Target Namespace
-createdAt: 2024-12-09T17:18:04.644492728Z
+createdAt: 2024-12-09T23:39:03.418487511Z
 description: Kustomization targetNamespace must be one of the allowed targetNamespace list.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

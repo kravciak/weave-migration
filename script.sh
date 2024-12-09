@@ -29,9 +29,8 @@ trap 'trap_exit' EXIT
 # ==================================================================================================
 # Variables & Functions
 
-: ${BASEDIR:=$PWD}
-: ${DATADIR:=$BASEDIR/data}
-exec &>> ${OUTPUT:=$BASEDIR/script.log}
+: ${DATADIR:=$PWD/data}
+exec &>> ${OUTPUT:=$PWD/script.log}
 
 do_readme() {
     yq '"# " + .spec.name' "$INDIR/policy.yaml"
@@ -133,10 +132,10 @@ do_metadata() {
 POLICIES="${1:-$(grep -hv ^# $DATADIR/policies.txt $DATADIR/examples.txt)}"
 
 for pol in $POLICIES; do
-    INDIR="$BASEDIR/$(find input/ -type d -name $pol)"
-    OUTDIR="$BASEDIR/output/$pol"
+    INDIR="$(find input/ -type d -name $pol)"
+    OUTDIR="output/$pol"
 
-    step "$pol"
+    step "$pol [${INDIR%\/$pol}]"
     test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
     ls $INDIR/tests/*.rego &>/dev/null || { warn "Policy without tests"; continue; }
     yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null || { warn "Policy without rules"; continue; }
@@ -146,9 +145,8 @@ for pol in $POLICIES; do
     cp "$DATADIR/Makefile" "$OUTDIR/"
     cp "$INDIR/policy.rego" "$OUTDIR/"
     cp -r "$INDIR/tests/" "$OUTDIR/"
-    sed -Ei 's/^(\s*)(package|import) (data.)?weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
-    # sed -Ei 's/^(\s+)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
-    # sed -i 's/^package weave.advisor.*/package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
+    sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
+    sed -Ei 's/^(import data).weave.*(.violation)/\1.policy\2/; s/^(import data).weave.*/\1.policy/' "$OUTDIR/tests/"*.rego
 
     info "Create readme"
     do_readme | tee "$OUTDIR/README.md"
@@ -161,15 +159,13 @@ for pol in $POLICIES; do
         yq -i '.annotations."io.kubewarden.policy.category" = "Best practices RBAC"' "$OUTDIR/metadata.yml"
     fi
 
-    info "Run tests"
-    # cd "$OUTDIR/"; make test; cd -
-    # opa test ./ -v --ignore '*.yml','*.yaml','.md','.csv'
+    info "Test and build"
+    make -C "$OUTDIR" test
+    make -C "$OUTDIR" artifacthub-pkg.yml VERSION=0.0.1
+    make -C "$OUTDIR" policy.wasm annotated-policy.wasm
+    # opa test "$OUTDIR" -v --ignore '*.yml','*.yaml','.md','.csv'
+    # ./test_policies --policy-path $pol # polctl
 
-    info "Run makefile"
-    cd "$OUTDIR"
-    VERSION=0.0.1 make artifacthub-pkg.yml
-    make policy.wasm annotated-policy.wasm
-    cd -
 done
 
 step "Done."

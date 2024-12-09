@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-release-storage-namespace
 displayName: Helm Release Storage Namespace
-createdAt: 2024-12-09T17:18:02.661293582Z
+createdAt: 2024-12-09T23:39:01.69609272Z
 description: HelmRelease storageNamespace must contain a value from storage_namespaces.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

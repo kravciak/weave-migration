@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kustomization-decryption-provider
 displayName: Kustomization Decryption Provider
-createdAt: 2024-12-09T17:18:03.991095455Z
+createdAt: 2024-12-09T23:39:02.834315391Z
 description: Spec.decryption.provider must be set to one of decryption_providers.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

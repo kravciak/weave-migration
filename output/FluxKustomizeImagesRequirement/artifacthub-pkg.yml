@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kustomization-images-requirement
 displayName: Kustomization Images Requirement
-createdAt: 2024-12-09T17:18:04.974511611Z
+createdAt: 2024-12-09T23:39:03.727886255Z
 description: The 'spec.images' field in a Kustomization object must be enabled or disabled based on the policy input images_required.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

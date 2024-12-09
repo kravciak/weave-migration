@@ -7,7 +7,7 @@
 version: 0.0.1
 name: rbac-prohibit-list-secrets
 displayName: Rbac Prohibit List On Secrets
-createdAt: 2024-12-09T17:17:57.102174385Z
+createdAt: 2024-12-09T23:38:56.555472452Z
 description: |
   This Policy will violate if any RBAC ClusterRoles or Roles are designated with 'list' verb on 'secrets' resource.
 license: Apache-2.0

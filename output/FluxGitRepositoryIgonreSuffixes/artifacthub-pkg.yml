@@ -7,7 +7,7 @@
 version: 0.0.1
 name: gitrepository-ignore-suffixes
 displayName: GitRepository Ignore Suffixes
-createdAt: 2024-12-09T17:18:00.350601134Z
+createdAt: 2024-12-09T23:38:59.450792884Z
 description: GitRepository resources must include specific suffixes in the spec.ignore field which determines the files to be ignored before making a commit.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

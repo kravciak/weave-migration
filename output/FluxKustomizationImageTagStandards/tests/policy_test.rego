@@ -1,7 +1,7 @@
 package policy
 
 import future.keywords.in
-package policy
+import data.policy
 
 test_valid_image_tag {
     testcase := {
