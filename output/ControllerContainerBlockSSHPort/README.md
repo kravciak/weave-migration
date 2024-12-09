@@ -36,5 +36,6 @@ settings:
     value:
 ```
 
-# Tags
-Policy applies to following resources:`Deployment`, `Job`, `ReplicationController`, `ReplicaSet`, `DaemonSet`, `StatefulSet`, `CronJob`
+# Resources
+Policy applies to resources kinds:
+`Deployment`, `Job`, `ReplicationController`, `ReplicaSet`, `DaemonSet`, `StatefulSet`, `CronJob`
