@@ -5,18 +5,18 @@
 # This config can be saved to its default location with:
 #   kwctl scaffold artifacthub > artifacthub-pkg.yml 
 version: 0.0.1
-name: containers-block-ssh-port
-displayName: Containers Block Ssh Port
-createdAt: 2024-12-09T12:30:36.963797672Z
-description: |
-  This Policy checks if the container is exposing ssh port.
+name: containers-should-not-run-in-namespace
+displayName: Containers Should Not Run In Namespace
+createdAt: 2024-12-09T12:30:41.236889148Z
+description: "This Policy ensure workloads are not running in a specified namespace. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
-  image: ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  image: ghcr.io/kubewarden/policies/containers-should-not-run-in-namespace:v0.0.1
 keywords:
-- pci-dss
+- cis-benchmark
+- soc2-type1
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm
@@ -25,11 +25,11 @@ links:
 install: |
   The policy can be obtained using [`kwctl`](https://github.com/kubewarden/kwctl):
   ```console
-  kwctl pull ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  kwctl pull ghcr.io/kubewarden/policies/containers-should-not-run-in-namespace:v0.0.1
   ```
   Then, generate the policy manifest and tune it to your liking. For example:
   ```console
-  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/kubewarden/policies/containers-should-not-run-in-namespace:v0.0.1
   ```
 maintainers:
 - name: Kubewarden developers
@@ -40,8 +40,18 @@ recommendations:
 - url: https://artifacthub.io/packages/helm/kubewarden/kubewarden-controller
 annotations:
   kubewarden/mutation: 'false'
-  kubewarden/resources: Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
+  kubewarden/resources: Pod, Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
   kubewarden/rules: |
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      resources:
+      - pods
+      - replicationcontrollers
+      operations:
+      - CREATE
+      - UPDATE
     - apiGroups:
       - apps
       apiVersions:
@@ -61,15 +71,6 @@ annotations:
       resources:
       - jobs
       - cronjobs
-      operations:
-      - CREATE
-      - UPDATE
-    - apiGroups:
-      - ''
-      apiVersions:
-      - v1
-      resources:
-      - replicationcontrollers
       operations:
       - CREATE
       - UPDATE

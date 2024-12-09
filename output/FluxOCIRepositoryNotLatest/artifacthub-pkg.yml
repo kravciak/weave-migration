@@ -5,18 +5,17 @@
 # This config can be saved to its default location with:
 #   kwctl scaffold artifacthub > artifacthub-pkg.yml 
 version: 0.0.1
-name: containers-block-ssh-port
-displayName: Containers Block Ssh Port
-createdAt: 2024-12-09T12:30:36.963797672Z
-description: |
-  This Policy checks if the container is exposing ssh port.
+name: ocirepository-not-latest
+displayName: OCIRepository Not Latest Tag
+createdAt: 2024-12-09T12:30:44.391232437Z
+description: OCIRepository resources must not use 'latest' as a tag reference.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
-  image: ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  image: ghcr.io/kubewarden/policies/ocirepository-not-latest:v0.0.1
 keywords:
-- pci-dss
+- flux
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm
@@ -25,11 +24,11 @@ links:
 install: |
   The policy can be obtained using [`kwctl`](https://github.com/kubewarden/kwctl):
   ```console
-  kwctl pull ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  kwctl pull ghcr.io/kubewarden/policies/ocirepository-not-latest:v0.0.1
   ```
   Then, generate the policy manifest and tune it to your liking. For example:
   ```console
-  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/kubewarden/policies/ocirepository-not-latest:v0.0.1
   ```
 maintainers:
 - name: Kubewarden developers
@@ -40,36 +39,14 @@ recommendations:
 - url: https://artifacthub.io/packages/helm/kubewarden/kubewarden-controller
 annotations:
   kubewarden/mutation: 'false'
-  kubewarden/resources: Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
+  kubewarden/resources: OCIRepository
   kubewarden/rules: |
     - apiGroups:
-      - apps
+      - source.toolkit.fluxcd.io
       apiVersions:
-      - v1
+      - v1beta2
       resources:
-      - deployments
-      - replicasets
-      - daemonsets
-      - statefulsets
-      operations:
-      - CREATE
-      - UPDATE
-    - apiGroups:
-      - batch
-      apiVersions:
-      - v1
-      resources:
-      - jobs
-      - cronjobs
-      operations:
-      - CREATE
-      - UPDATE
-    - apiGroups:
-      - ''
-      apiVersions:
-      - v1
-      resources:
-      - replicationcontrollers
+      - ocirepositories
       operations:
       - CREATE
       - UPDATE

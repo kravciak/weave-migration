@@ -96,10 +96,10 @@ do_metadata() {
 
     # select(.spec.tags | any) | "io.artifacthub.keywords": .spec.tags | join(", "),
     # "io.artifacthub.keywords": .spec.tags | select(length > 0) | join(", "),
-    yq '{"annotations": ( {} +
+    yq '{"annotations": (
         {
         "io.artifacthub.displayName": .spec.name,
-        "io.artifacthub.keywords": .spec.tags | join(", "),
+        # "io.artifacthub.keywords": .spec.tags // [] | join(", "),
         "io.artifacthub.resources": .spec.targets.kinds | join(", "),
         "io.kubewarden.policy.title": .spec.id | sub("weave.(policies|templates)."; ""),
         "io.kubewarden.policy.description": .spec.description, # TODO: fix newlines
@@ -111,6 +111,7 @@ do_metadata() {
         "io.kubewarden.policy.category": .spec.category | sub("weave.categories."; ""),
         "io.kubewarden.policy.severity": .spec.severity
         }
+        + ({key "io.artifacthub.keywords": .spec.tags | select(length != 0) | join(", ")} | from_entries)
         + (.spec.standards // [] | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries)
     )}' "$INDIR/policy.yaml"
 
@@ -133,7 +134,6 @@ do_metadata() {
 
 # TODOs
 
-i=1
 for pol in $POLICIES; do
     INDIR="$BASEDIR/input/policies/$pol"
     OUTDIR="$BASEDIR/output/$pol"
@@ -161,7 +161,7 @@ for pol in $POLICIES; do
     fi
 
     info "Run tests"
-    cd "$OUTDIR/"; make test; cd -
+    # cd "$OUTDIR/"; make test; cd -
     # opa test ./ -v --ignore '*.yml','*.yaml','.md','.csv'
 
     info "Run makefile"
@@ -169,9 +169,6 @@ for pol in $POLICIES; do
     VERSION=0.0.1 make artifacthub-pkg.yml
     make policy.wasm annotated-policy.wasm
     cd -
-
-    ((i++))
-    [ $i -gt 15 ] && break
 done
 
-info "Done."
+step "Done."

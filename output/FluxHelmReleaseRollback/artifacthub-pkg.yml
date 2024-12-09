@@ -5,18 +5,17 @@
 # This config can be saved to its default location with:
 #   kwctl scaffold artifacthub > artifacthub-pkg.yml 
 version: 0.0.1
-name: containers-block-ssh-port
-displayName: Containers Block Ssh Port
-createdAt: 2024-12-09T12:30:36.963797672Z
-description: |
-  This Policy checks if the container is exposing ssh port.
+name: helm-release-rollback
+displayName: Helm Release Rollback Should Be Disabled
+createdAt: 2024-12-09T12:30:43.023903378Z
+description: The rollback feature of a HelmRelease should be disabled.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
 containersImages:
 - name: policy
-  image: ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  image: ghcr.io/kubewarden/policies/helm-release-rollback:v0.0.1
 keywords:
-- pci-dss
+- flux
 links:
 - name: policy
   url: https://github.com/kubewarden/rego-policies/releases/download/v0.0.1/policy.wasm
@@ -25,11 +24,11 @@ links:
 install: |
   The policy can be obtained using [`kwctl`](https://github.com/kubewarden/kwctl):
   ```console
-  kwctl pull ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  kwctl pull ghcr.io/kubewarden/policies/helm-release-rollback:v0.0.1
   ```
   Then, generate the policy manifest and tune it to your liking. For example:
   ```console
-  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/kubewarden/policies/containers-block-ssh-port:v0.0.1
+  kwctl scaffold manifest -t ClusterAdmissionPolicy registry://ghcr.io/kubewarden/policies/helm-release-rollback:v0.0.1
   ```
 maintainers:
 - name: Kubewarden developers
@@ -40,36 +39,14 @@ recommendations:
 - url: https://artifacthub.io/packages/helm/kubewarden/kubewarden-controller
 annotations:
   kubewarden/mutation: 'false'
-  kubewarden/resources: Deployment, Job, ReplicationController, ReplicaSet, DaemonSet, StatefulSet, CronJob
+  kubewarden/resources: HelmRelease
   kubewarden/rules: |
     - apiGroups:
-      - apps
+      - helm.toolkit.fluxcd.io
       apiVersions:
-      - v1
+      - v2
       resources:
-      - deployments
-      - replicasets
-      - daemonsets
-      - statefulsets
-      operations:
-      - CREATE
-      - UPDATE
-    - apiGroups:
-      - batch
-      apiVersions:
-      - v1
-      resources:
-      - jobs
-      - cronjobs
-      operations:
-      - CREATE
-      - UPDATE
-    - apiGroups:
-      - ''
-      apiVersions:
-      - v1
-      resources:
-      - replicationcontrollers
+      - helmreleases
       operations:
       - CREATE
       - UPDATE
