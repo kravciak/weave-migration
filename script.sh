@@ -31,6 +31,7 @@ trap 'trap_exit' EXIT
 
 : ${DATADIR:=$PWD/data}
 exec &>> ${OUTPUT:=$PWD/script.log}
+echo -n > $OUTPUT
 
 do_readme() {
     yq '"# " + .spec.name' "$INDIR/policy.yaml"
@@ -58,9 +59,9 @@ do_readme() {
 # kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
 
 do_metadata() {
-    yq '{"rules":
+    KINDS="${1:-}" yq '{"rules":
         # Define the target kinds from the input spec
-        .spec.targets.kinds as $targetKinds |
+        .spec.targets.kinds // (strenv(KINDS) | split(",")) as $targetKinds |
 
         # Load the kinds mapping from the separate YAML file
         load("data/kinds-mapping.yaml").kinds_mapping as $kindMap |
@@ -92,11 +93,11 @@ do_metadata() {
 
     # select(.spec.tags | any) | "io.artifacthub.keywords": .spec.tags | join(", "),
     # "io.artifacthub.keywords": .spec.tags | select(length > 0) | join(", "),
-    yq '{"annotations": (
+    KINDS="${1:-}" yq '{"annotations": (
         {
         "io.artifacthub.displayName": .spec.name,
-        # "io.artifacthub.keywords": .spec.tags // [] | join(", "),
-        "io.artifacthub.resources": .spec.targets.kinds | join(", "),
+        "io.artifacthub.keywords": .spec.tags // [] | join(", "),
+        "io.artifacthub.resources": .spec.targets.kinds // (strenv(KINDS) | split(",")) | join(", "),
         "io.kubewarden.policy.title": .spec.id | sub("weave.(policies|templates)."; ""),
         "io.kubewarden.policy.description": .spec.description, # TODO: fix newlines
         "io.kubewarden.policy.author": "Kubewarden developers <cncf-kubewarden-maintainers@lists.cncf.io>",
@@ -132,26 +133,46 @@ do_metadata() {
 POLICIES="${1:-$(grep -hv ^# $DATADIR/policies.txt $DATADIR/examples.txt)}"
 
 for pol in $POLICIES; do
+    # Find policy directory by name
     INDIR="$(find input/ -type d -name $pol)"
-    OUTDIR="output/$pol"
+    # Default output directory
+    OUTDIR="output/policies/$pol"
+    # Staging for policies without tests
+    ls "$INDIR/tests/"*.rego &>/dev/null || OUTDIR="output/staging/$pol"
 
-    test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
-    ls $INDIR/tests/*.rego &>/dev/null || { echo "Policy without tests"; continue; }
-    yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null || { echo "Policy without rules"; continue; }
+    # test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
+    # ls $INDIR/tests/*.rego &>/dev/null || { warn "Policy without tests"; continue; }
+    # yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null || { warn "Policy without rules"; continue; }
+
+    RESOURCES='StatefulSet|DaemonSet|Deployment|Job|Pod|CronJob|Role|ServiceAccount|Service|NetworkPolicy|ClusterBinding|ReplicaSet|ClusterRoleBinding|PersistentVolume|Ingress|Gateway|Namespace|Node|LimitRange|ResourceQuota|VolumeSnapshot|Bucket|GitRepository|HelmChart|HelmRelease|HelmRepository|Kustomization|OCIRepository|ReplicationController|HorizontalAutoscaler'
 
     step "$pol [${INDIR%\/$pol}]"
+    KINDS="" # Reset for each policy
+    if ! yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null; then
+        info "Generate rules"
+        grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$INDIR/policy.rego" || { warn "Policy without rules"; continue; }
+        KINDS=$(grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$INDIR/policy.rego" |\
+            grep -oE "$RESOURCES" | sort -u | paste -sd',')
+        # continue
+    else
+        continue
+    fi
+
     mkdir -p "$OUTDIR"
     cp "$DATADIR/Makefile" "$OUTDIR/"
-    cp "$INDIR/policy.rego" "$OUTDIR/"
-    cp -r "$INDIR/tests/" "$OUTDIR/"
-    sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego" "$OUTDIR/tests/"*
-    sed -Ei 's/^(import data).weave.*(.violation)/\1.policy\2/; s/^(import data).weave.*/\1.policy/' "$OUTDIR/tests/"*.rego
+    cp "$INDIR/policy.rego" "$INDIR/policy.yaml" "$OUTDIR/"
+    sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego"
+    if test -d "$INDIR/tests/"; then
+        cp -r "$INDIR/tests/" "$OUTDIR/"
+        sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/tests/"*
+        ls "$OUTDIR/tests/"*.rego &>/dev/null && sed -Ei 's/^(import data).weave.*(.violation)/\1.policy\2/; s/^(import data).weave.*/\1.policy/' "$OUTDIR/tests/"*.rego
+    fi
 
     info "Create readme"
     do_readme | tee "$OUTDIR/README.md"
 
     info "Create metadata"
-    do_metadata | tee "$OUTDIR/metadata.yml"
+    do_metadata "$KINDS" | tee "$OUTDIR/metadata.yml"
     sed -i '/io.kubewarden.policy.standards/ s/i/# i/' "$OUTDIR/metadata.yml" # Comment out standards
     yq -i 'del(.annotations."io.artifacthub.keywords" | select(. == ""))' "$OUTDIR/metadata.yml" # Remove empty keywords
     if grep -w "$pol" "$INDIR/../../goodpractices/kubernetes/rbac/secrets/kustomization.yaml" > /dev/null; then
@@ -159,12 +180,10 @@ for pol in $POLICIES; do
     fi
 
     info "Test and build"
-    make -C "$OUTDIR" test
+    ls "$OUTDIR/tests/"*.rego  &>/dev/null && make -C "$OUTDIR" test
+    ls "$OUTDIR/tests/"*.y?ml  &>/dev/null && ./test_policies --policy-path "$OUTDIR" || warn "Yaml tests failed"
     make -C "$OUTDIR" artifacthub-pkg.yml VERSION=0.0.1
     make -C "$OUTDIR" policy.wasm annotated-policy.wasm
-    # opa test "$OUTDIR" -v --ignore '*.yml','*.yaml','.md','.csv'
-    # ./test_policies --policy-path $pol # polctl
-
 done
 
 step "Done."
