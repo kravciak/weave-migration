@@ -131,41 +131,36 @@ do_metadata() {
 
 # Use parameter as policy name or target all policies/examples
 POLICIES="${1:-$(grep -hv ^# $DATADIR/policies.txt $DATADIR/examples.txt)}"
+RESOURCES='StatefulSet|DaemonSet|Deployment|Job|Pod|CronJob|Role|ServiceAccount|Service|NetworkPolicy|ClusterBinding|ReplicaSet|ClusterRoleBinding|PersistentVolume|Ingress|Gateway|Namespace|Node|LimitRange|ResourceQuota|VolumeSnapshot|Bucket|GitRepository|HelmChart|HelmRelease|HelmRepository|Kustomization|OCIRepository|ReplicationController|HorizontalAutoscaler'
 
 for pol in $POLICIES; do
     # Find policy directory by name
     INDIR="$(find input/ -type d -name $pol)"
     # Default output directory
     OUTDIR="output/policies/$pol"
-    # Staging for policies without tests
+    # Staging dir for policies without tests
     ls "$INDIR/tests/"*.rego &>/dev/null || OUTDIR="output/staging/$pol"
 
-    # test -d "$INDIR" || { error "Policy not found: $pol"; exit 1; }
-    # ls $INDIR/tests/*.rego &>/dev/null || { warn "Policy without tests"; continue; }
-    # yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null || { warn "Policy without rules"; continue; }
-
-    RESOURCES='StatefulSet|DaemonSet|Deployment|Job|Pod|CronJob|Role|ServiceAccount|Service|NetworkPolicy|ClusterBinding|ReplicaSet|ClusterRoleBinding|PersistentVolume|Ingress|Gateway|Namespace|Node|LimitRange|ResourceQuota|VolumeSnapshot|Bucket|GitRepository|HelmChart|HelmRelease|HelmRepository|Kustomization|OCIRepository|ReplicationController|HorizontalAutoscaler'
-
     step "$pol [${INDIR%\/$pol}]"
-    KINDS="" # Reset for each policy
-    if ! yq -e '.spec.targets.kinds' "$INDIR/policy.yaml" &>/dev/null; then
-        info "Generate rules"
-        grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$INDIR/policy.rego" || { warn "Policy without rules"; continue; }
-        KINDS=$(grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$INDIR/policy.rego" |\
-            grep -oE "$RESOURCES" | sort -u | paste -sd',')
-        # continue
-    else
-        continue
-    fi
-
     mkdir -p "$OUTDIR"
     cp "$DATADIR/Makefile" "$OUTDIR/"
     cp "$INDIR/policy.rego" "$INDIR/policy.yaml" "$OUTDIR/"
     sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/policy.rego"
+
+    # Make policy tests
     if test -d "$INDIR/tests/"; then
         cp -r "$INDIR/tests/" "$OUTDIR/"
         sed -Ei 's/^(\s*)package weave.advisor.*/\1package policy/' "$OUTDIR/tests/"*
         ls "$OUTDIR/tests/"*.rego &>/dev/null && sed -Ei 's/^(import data).weave.*(.violation)/\1.policy\2/; s/^(import data).weave.*/\1.policy/' "$OUTDIR/tests/"*.rego
+    fi
+
+    # Make policy rules
+    KINDS=""
+    if ! yq -e '.spec.targets.kinds' "$OUTDIR/policy.yaml" &>/dev/null; then
+        info "Generate rules"
+        grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$OUTDIR/policy.rego" || { error "Policy without rules"; continue; }
+        KINDS=$(grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$OUTDIR/policy.rego" |\
+            grep -oE "$RESOURCES" | sort -u | paste -sd',')
     fi
 
     info "Create readme"
