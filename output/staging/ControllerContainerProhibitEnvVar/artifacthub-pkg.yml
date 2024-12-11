@@ -7,7 +7,7 @@
 version: 0.0.1
 name: container-prohibit-environment-variable
 displayName: Container Prohibit Environment Variable
-createdAt: 2024-12-11T16:50:27.513305479Z
+createdAt: 2024-12-11T17:07:29.421097665Z
 description: "This Policy checks prohibits a specific environment variable. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
