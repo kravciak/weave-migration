@@ -7,7 +7,7 @@
 version: 0.0.1
 name: ocirepository-not-latest
 displayName: OCIRepository Not Latest Tag
-createdAt: 2024-12-11T17:06:56.708101656Z
+createdAt: 2024-12-11T17:46:49.041050949Z
 description: OCIRepository resources must not use 'latest' as a tag reference.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

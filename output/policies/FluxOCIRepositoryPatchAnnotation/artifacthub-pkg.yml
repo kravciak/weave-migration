@@ -7,7 +7,7 @@
 version: 0.0.1
 name: ocirepository-patch-annotation
 displayName: OCIRepository Patch Annotation
-createdAt: 2024-12-11T17:07:42.430826799Z
+createdAt: 2024-12-11T17:47:35.64180204Z
 description: OCIRepository resources must have a patch annotation that matches the provider.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

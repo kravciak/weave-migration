@@ -7,7 +7,7 @@
 version: 0.0.1
 name: ocirepository-cosign-verification
 displayName: OCIRepository Cosign Verification
-createdAt: 2024-12-11T17:06:56.364586795Z
+createdAt: 2024-12-11T17:46:48.695819491Z
 description: OCIRepository resources must provide Cosign verification and reference a specific key.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

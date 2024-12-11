@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-should-not-run-on-kubernetes-control-plane-nodes
 displayName: Containers Should Not Run On Kubernetes Control Plane Nodes
-createdAt: 2024-12-11T17:06:53.010739512Z
+createdAt: 2024-12-11T17:46:45.041534226Z
 description: "Tolerations specified in the Policies for this template should not have any workloads scheduled on them. A common use case is the Kubernetes master. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

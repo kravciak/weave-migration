@@ -7,7 +7,7 @@
 version: 0.0.1
 name: mongo-express-enforce-ssl-enabled-env-var
 displayName: Mongo-Express Enforce Environment Variable - ME_CONFIG_SITE_SSL_ENABLED
-createdAt: 2024-12-11T17:07:09.841130632Z
+createdAt: 2024-12-11T17:47:02.224948425Z
 description: |
   This Policy ensures ME_CONFIG_SITE_SSL_ENABLED environment variable are in place when using the official container images from Docker Hub.
   ME_CONFIG_SITE_SSL_ENABLED: The ME_CONFIG_SITE_SSL_ENABLED environment variable enables SSL.

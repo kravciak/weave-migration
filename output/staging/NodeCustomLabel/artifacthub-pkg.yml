@@ -7,7 +7,7 @@
 version: 0.0.1
 name: node-custom-label
 displayName: Node Custom Label
-createdAt: 2024-12-11T17:07:50.397958418Z
+createdAt: 2024-12-11T17:47:43.646603553Z
 description: "This Policy checks for custom labels on your node. This Policy looks for both a key and value. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

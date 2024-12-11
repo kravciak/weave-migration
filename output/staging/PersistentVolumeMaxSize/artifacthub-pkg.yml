@@ -7,7 +7,7 @@
 version: 0.0.1
 name: persistent-volume-max-size
 displayName: Persistent Volume Max Size
-createdAt: 2024-12-11T17:07:52.389667834Z
+createdAt: 2024-12-11T17:47:45.718056944Z
 description: |
   This Policy sets a max size on your Persistent Volumes. When specifying a size, be sure to include the size and sizing suffix (e.g. 1Gi).
 license: Apache-2.0

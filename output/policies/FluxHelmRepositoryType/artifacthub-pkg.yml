@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-repo-type
 displayName: Helm Repo Type Should Be OCI
-createdAt: 2024-12-11T17:06:55.410189584Z
+createdAt: 2024-12-11T17:46:47.661815519Z
 description: The type of a Helm repository should be OCI.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

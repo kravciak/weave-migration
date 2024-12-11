@@ -7,7 +7,7 @@
 version: 0.0.1
 name: container-minimum-cpu-requests
 displayName: Container Minimum CPU Requests
-createdAt: 2024-12-11T17:07:33.40348152Z
+createdAt: 2024-12-11T17:47:26.285124585Z
 description: |
   This Policy is to ensure a minimum CPU Request value is set. The policy will fail if the set CPU request is lower than the one specified in the policy. You must specify a unit size (m, g, etc).
 license: Apache-2.0
