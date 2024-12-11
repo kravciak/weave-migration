@@ -131,6 +131,7 @@ do_metadata() {
 
 # Use parameter as policy name or target all policies/examples
 POLICIES="${1:-$(grep -hv ^# $DATADIR/policies.txt $DATADIR/examples.txt)}"
+# Grep rego files for resources if not defined in policy.yaml
 RESOURCES='StatefulSet|DaemonSet|Deployment|Job|Pod|CronJob|Role|ServiceAccount|Service|NetworkPolicy|ClusterBinding|ReplicaSet|ClusterRoleBinding|PersistentVolume|Ingress|Gateway|Namespace|Node|LimitRange|ResourceQuota|VolumeSnapshot|Bucket|GitRepository|HelmChart|HelmRelease|HelmRepository|Kustomization|OCIRepository|ReplicationController|HorizontalAutoscaler'
 
 for pol in $POLICIES; do
@@ -157,16 +158,16 @@ for pol in $POLICIES; do
     # Make policy rules
     KINDS=""
     if ! yq -e '.spec.targets.kinds' "$OUTDIR/policy.yaml" &>/dev/null; then
-        info "Generate rules"
+        # info "Generate rules"
         grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$OUTDIR/policy.rego" || { error "Policy without rules"; continue; }
         KINDS=$(grep -E 'controller_input.kind|input.review.object.kind|contains_kind' "$OUTDIR/policy.rego" |\
             grep -oE "$RESOURCES" | sort -u | paste -sd',')
     fi
 
-    info "Create readme"
+    # info "Create readme"
     do_readme | tee "$OUTDIR/README.md"
 
-    info "Create metadata"
+    # info "Create metadata"
     do_metadata "$KINDS" | tee "$OUTDIR/metadata.yml"
     sed -i '/io.kubewarden.policy.standards/ s/i/# i/' "$OUTDIR/metadata.yml" # Comment out standards
     yq -i 'del(.annotations."io.artifacthub.keywords" | select(. == ""))' "$OUTDIR/metadata.yml" # Remove empty keywords
@@ -174,7 +175,7 @@ for pol in $POLICIES; do
         yq -i '.annotations."io.kubewarden.policy.category" = "Best practices RBAC"' "$OUTDIR/metadata.yml"
     fi
 
-    info "Test and build"
+    # info "Test and build"
     ls "$OUTDIR/tests/"*.rego  &>/dev/null && make -C "$OUTDIR" test
     ls "$OUTDIR/tests/"*.y?ml  &>/dev/null && { ./test_policies --policy-path "$OUTDIR" || error "Yaml tests failed"; }
     make -C "$OUTDIR" artifacthub-pkg.yml VERSION=0.0.1
@@ -182,3 +183,6 @@ for pol in $POLICIES; do
 done
 
 step "Done."
+
+# ==================================================================================================
+# KubernetesProhibitKind - rules target Pod[s!], should target everything
