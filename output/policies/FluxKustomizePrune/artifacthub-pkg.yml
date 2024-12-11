@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kustomization-prune
 displayName: Kustomization Prune
-createdAt: 2024-12-11T17:47:34.127943533Z
+createdAt: 2024-12-11T17:53:54.064412658Z
 description: The 'spec.prune' field in the Kustomization object must be set according to the input parameter 'prune'.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

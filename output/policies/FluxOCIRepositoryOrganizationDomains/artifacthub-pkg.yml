@@ -7,7 +7,7 @@
 version: 0.0.1
 name: ocirepository-organization-domains
 displayName: OCIRepository Organization Domains
-createdAt: 2024-12-11T17:47:35.269873413Z
+createdAt: 2024-12-11T17:53:55.142316939Z
 description: OCIRepository resources must only be from allowed organization domains.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

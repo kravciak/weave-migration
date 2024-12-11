@@ -7,7 +7,7 @@
 version: 0.0.1
 name: persistent-volume-claim-snapshot
 displayName: Persistent Volume Claim Snapshot
-createdAt: 2024-12-11T17:47:45.397078512Z
+createdAt: 2024-12-11T17:54:05.145582161Z
 description: "This Policy checks for a PVC Snapshot. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

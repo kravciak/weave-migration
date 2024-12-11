@@ -7,7 +7,7 @@
 version: 0.0.1
 name: rabbitmq-enforce-ssl-keyfile-env-var
 displayName: RabbitMQ Enforce Environment Variable - RABBITMQ_SSL_KEYFILE
-createdAt: 2024-12-11T17:47:16.157811638Z
+createdAt: 2024-12-11T17:53:35.20388802Z
 description: |
   This Policy ensures RABBITMQ_SSL_KEYFILE environment variable are in place when using the official container images from Docker Hub.
   RABBITMQ_SSL_KEYFILE: The RABBITMQ_SSL_KEYFILE sets a path for the server private key file.
