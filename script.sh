@@ -176,7 +176,7 @@ for pol in $POLICIES; do
 
     info "Test and build"
     ls "$OUTDIR/tests/"*.rego  &>/dev/null && make -C "$OUTDIR" test
-    ls "$OUTDIR/tests/"*.y?ml  &>/dev/null && ./test_policies --policy-path "$OUTDIR" || warn "Yaml tests failed"
+    ls "$OUTDIR/tests/"*.y?ml  &>/dev/null && { ./test_policies --policy-path "$OUTDIR" || error "Yaml tests failed"; }
     make -C "$OUTDIR" artifacthub-pkg.yml VERSION=0.0.1
     make -C "$OUTDIR" policy.wasm annotated-policy.wasm
 done
