@@ -13,8 +13,6 @@ Use an image that is not set in the Policy.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

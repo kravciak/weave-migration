@@ -9,8 +9,6 @@ https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-pod-n
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

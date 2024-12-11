@@ -29,8 +29,6 @@ https://kubernetes.io/docs/reference/labels-annotations-taints/
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

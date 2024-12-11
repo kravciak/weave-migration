@@ -22,8 +22,6 @@ https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

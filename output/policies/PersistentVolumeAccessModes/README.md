@@ -23,8 +23,6 @@ spec:
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -22,8 +22,6 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-read
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

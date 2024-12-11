@@ -28,8 +28,6 @@ https://kubernetes.io/docs/concepts/services-networking/network-policies/#target
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

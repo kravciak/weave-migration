@@ -12,8 +12,6 @@ status:
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

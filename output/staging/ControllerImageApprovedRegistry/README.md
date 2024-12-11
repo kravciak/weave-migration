@@ -17,8 +17,6 @@ Replace the violating registry with one that is approved.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

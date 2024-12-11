@@ -16,8 +16,6 @@ https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

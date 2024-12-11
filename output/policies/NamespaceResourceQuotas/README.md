@@ -16,8 +16,6 @@ https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memor
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

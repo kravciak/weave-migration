@@ -11,8 +11,6 @@ nodeInfo:
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

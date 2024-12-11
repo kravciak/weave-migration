@@ -7,7 +7,7 @@
 version: 0.0.1
 name: ingress-approved-hostnames
 displayName: Ingress Approved Hostnames
-createdAt: 2024-12-11T16:50:34.260857506Z
+createdAt: 2024-12-12T12:28:59.750340167Z
 description: "This Policy ensures only hostnames that are approved are set. Specify a list of approved hostnames since you may be hosting more than one domain name. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

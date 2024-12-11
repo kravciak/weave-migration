@@ -16,8 +16,6 @@ https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#selector
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

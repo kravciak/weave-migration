@@ -21,8 +21,6 @@ https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#P
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

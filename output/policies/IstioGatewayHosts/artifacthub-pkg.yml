@@ -7,7 +7,7 @@
 version: 0.0.1
 name: istio-gateway-approved-hosts
 displayName: Istio Gateway Approved Hosts
-createdAt: 2024-12-11T16:50:34.595564314Z
+createdAt: 2024-12-12T12:29:00.087988452Z
 description: "### Istio Gateway Approved Hosts\nThis ensures you are only serving traffic for approved hostnames. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

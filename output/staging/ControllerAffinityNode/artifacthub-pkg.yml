@@ -7,7 +7,7 @@
 version: 0.0.1
 name: affinity-node-simple
 displayName: Affinity Node Simple
-createdAt: 2024-12-11T16:50:25.733386388Z
+createdAt: 2024-12-12T12:28:44.35123965Z
 description: |
   This Policy sets NodeAffinity keys, regardless of the Node Affinity selector or scheduling type. List out the keys you want to check to ensure you are using the right keys. This Policy supports the following Node Affinity types:
   - preferredDuringSchedulingIgnoredDuringExecution
