@@ -23,6 +23,27 @@ kinds_mapping:
     apiGroup: ""
     apiVersion: v1
     resource: replicationcontrollers
+  Node:
+    apiGroup: ""
+    apiVersion: v1
+    resource: nodes
+  LimitRange:
+    apiGroup: ""
+    apiVersion: v1
+    resource: limitranges
+  ResourceQuota:
+    apiGroup: ""
+    apiVersion: v1
+    resource: resourcequotas
+
+  VolumeSnapshot:
+    apiGroup: snapshot.storage.k8s.io
+    apiVersion: v1
+    resource: volumesnapshots
+  HorizontalPodAutoscaler:
+    apiGroup: autoscaling
+    apiVersion: v2
+    resource: horizontalpodautoscalers
 
   Deployment:
     apiGroup: apps
@@ -50,10 +71,19 @@ kinds_mapping:
     apiVersion: v1
     resource: cronjobs
 
+  Ingress:
+    apiGroup: networking.k8s.io
+    apiVersion: v1
+    resource: ingresses
   NetworkPolicy:
     apiGroup: networking.k8s.io
     apiVersion: v1
     resource: networkpolicies
+  Gateway:
+    apiGroup: networking.istio.io
+    apiVersion: v1
+    resource: gateways
+
 
   HelmRelease:
     apiGroup: helm.toolkit.fluxcd.io
