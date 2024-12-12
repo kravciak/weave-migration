@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-block-ports-range
 displayName: Containers Block Ports Range
-createdAt: 2024-12-12T12:48:53.16878469Z
+createdAt: 2024-12-12T12:50:12.523670841Z
 description: "This Policy checks for container ports that are set below the set value. TCP ports under 1024 are reserved so we recommend setting your Policy to 1024 or higher. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies
