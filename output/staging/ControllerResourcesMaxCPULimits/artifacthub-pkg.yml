@@ -7,7 +7,7 @@
 version: 0.0.1
 name: container-maximum-cpu-limits
 displayName: Container Maximum CPU Limits
-createdAt: 2024-12-12T12:28:48.233496529Z
+createdAt: 2024-12-12T12:35:59.232882273Z
 description: |
   This Policy is to ensure a maximum CPU Limit value is set. The policy will fail if the set CPU limit is higher than the one specified in the policy. You must specify a unit size (m, g, etc).
 license: Apache-2.0

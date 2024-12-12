@@ -7,7 +7,7 @@
 version: 0.0.1
 name: resource-suspend-waiver
 displayName: Resource Suspend Waiver
-createdAt: 2024-12-12T12:28:59.140356009Z
+createdAt: 2024-12-12T12:36:11.2977354Z
 description: Resource cannot be suspended unless it's on the waiver list.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

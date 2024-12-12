@@ -7,7 +7,7 @@
 version: 0.0.1
 name: node-missing-label
 displayName: Node Missing Label
-createdAt: 2024-12-12T12:29:05.994608982Z
+createdAt: 2024-12-12T12:36:18.280112167Z
 description: |
   This Policy only looks for specific node label keys.
 

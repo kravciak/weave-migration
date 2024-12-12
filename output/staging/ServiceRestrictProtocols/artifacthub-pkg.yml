@@ -7,7 +7,7 @@
 version: 0.0.1
 name: services-restrict-protocols
 displayName: Services Restrict Protocols
-createdAt: 2024-12-12T12:28:44.051945905Z
+createdAt: 2024-12-12T12:35:54.327833707Z
 description: "This Policy specifies what protocols should set for your Service. Any protocol not listed in this Policy will be in violation. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

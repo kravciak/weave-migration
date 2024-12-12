@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-sharing-host-network
 displayName: Containers Sharing Host Network
-createdAt: 2024-12-12T12:28:10.046040876Z
+createdAt: 2024-12-12T12:35:19.804714429Z
 description: |
   This Policy allows check if sharing host network namespace with the container should be allowed or not. Resources that can be shared with the container include:
 

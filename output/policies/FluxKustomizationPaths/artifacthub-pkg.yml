@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kustomization-excluded-paths
 displayName: Kustomization Excluded Paths
-createdAt: 2024-12-12T12:28:55.950550782Z
+createdAt: 2024-12-12T12:36:07.964645516Z
 description: spec.path cannot be one of excludedPathsList[]
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

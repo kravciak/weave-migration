@@ -7,7 +7,7 @@
 version: 0.0.1
 name: influxdb-enforce-bucket-env-var
 displayName: InfluxDB Enforce Environment Variable - DOCKER_INFLUXDB_INIT_BUCKET
-createdAt: 2024-12-12T12:28:15.097670925Z
+createdAt: 2024-12-12T12:35:24.884113759Z
 description: |
   This Policy ensures DOCKER_INFLUXDB_INIT_BUCKET environment variable are in place when using the official container images from Docker Hub.
   DOCKER_INFLUXDB_INIT_BUCKET: The name to set for the system's initial bucket (Required).

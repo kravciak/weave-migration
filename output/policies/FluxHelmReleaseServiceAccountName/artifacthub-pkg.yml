@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-release-service-account-name
 displayName: Helm Release Service Account Name
-createdAt: 2024-12-12T12:28:54.081806673Z
+createdAt: 2024-12-12T12:36:05.972922824Z
 description: HelmRelease serviceAccountName must contain a value from parameters.service_account_names
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

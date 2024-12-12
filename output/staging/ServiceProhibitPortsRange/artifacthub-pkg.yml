@@ -7,7 +7,7 @@
 version: 0.0.1
 name: services-prohibit-ports-range
 displayName: Services Prohibit Ports Range
-createdAt: 2024-12-12T12:28:43.441620622Z
+createdAt: 2024-12-12T12:35:53.735300015Z
 description: "This Policy checks if ports allocated for your services are using a number that is less than the specified value. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

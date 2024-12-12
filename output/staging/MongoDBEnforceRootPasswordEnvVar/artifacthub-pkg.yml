@@ -7,7 +7,7 @@
 version: 0.0.1
 name: mongodb-enforce-root-password-env-var
 displayName: MongoDB Enforce Environment Variable - MONGO_INITDB_ROOT_PASSWORD
-createdAt: 2024-12-12T12:28:21.868670486Z
+createdAt: 2024-12-12T12:35:31.335769538Z
 description: |
   This Policy ensures MONGO_INITDB_ROOT_PASSWORD environment variable are in place when using the official container images from Docker Hub.
   MONGO_INITDB_ROOT_PASSWORD: The MONGO_INITDB_ROOT_PASSWORD environment variable sets the MongoDB root user password.

@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-enforce-restart-policy
 displayName: Containers Enforce Restart Policy
-createdAt: 2024-12-12T12:28:09.113460985Z
+createdAt: 2024-12-12T12:35:18.845588907Z
 description: |
   This Policy checks if a specific restartPolicy is configured in your workloads.
 license: Apache-2.0

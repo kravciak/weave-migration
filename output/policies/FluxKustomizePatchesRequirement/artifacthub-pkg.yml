@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kustomization-patches-requirement
 displayName: Kustomization Patches
-createdAt: 2024-12-12T12:28:56.942899489Z
+createdAt: 2024-12-12T12:36:08.897740764Z
 description: Kustomization patches should be enabled or disabled based on input.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

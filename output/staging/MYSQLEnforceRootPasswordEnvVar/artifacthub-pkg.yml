@@ -7,7 +7,7 @@
 version: 0.0.1
 name: mysql-enforce-root-password-env-var
 displayName: MYSQL Enforce Environment Variable - MYSQL_ROOT_PASSWORD
-createdAt: 2024-12-12T12:28:28.924538329Z
+createdAt: 2024-12-12T12:35:38.904836296Z
 description: "This Policy ensures MYSQL_ROOT_PASSWORD environment variable are in place when using the official container images from Docker Hub.\nMYSQL_ROOT_PASSWORD: The MYSQL_ROOT_PASSWORD environment variable specifies a password for the MySQL root account. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-release-rollback
 displayName: Helm Release Rollback Should Be Disabled
-createdAt: 2024-12-12T12:28:12.886898188Z
+createdAt: 2024-12-12T12:35:22.56686619Z
 description: The rollback feature of a HelmRelease should be disabled.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

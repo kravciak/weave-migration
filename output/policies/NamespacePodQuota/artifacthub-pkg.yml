@@ -7,7 +7,7 @@
 version: 0.0.1
 name: namespace-pod-quota
 displayName: Namespace Pod Quota
-createdAt: 2024-12-12T12:29:01.622204847Z
+createdAt: 2024-12-12T12:36:13.807946974Z
 description: "When using a pod quota ensure setting the proper value for the quantity of pods you wish to have in your namespace. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

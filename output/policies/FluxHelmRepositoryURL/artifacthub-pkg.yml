@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-repo-url
 displayName: Helm Repo URL Should Be in Organisation Domain
-createdAt: 2024-12-12T12:28:55.342194355Z
+createdAt: 2024-12-12T12:36:07.343409334Z
 description: The URL of a Helm repository should only be from the specified organisation domain.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

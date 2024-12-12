@@ -7,7 +7,7 @@
 version: 0.0.1
 name: container-minimum-cpu-limits
 displayName: Container Minimum CPU Limits
-createdAt: 2024-12-12T12:28:49.458459116Z
+createdAt: 2024-12-12T12:36:01.017901987Z
 description: |
   This Policy is to ensure a minimum CPU Limit value is set. The policy will fail if the set CPU limit is lower than the one specified in the policy. You must specify a unit size (m, g, etc).
 license: Apache-2.0

@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-release-max-history
 displayName: Helm Release Max History
-createdAt: 2024-12-12T12:28:53.419572517Z
+createdAt: 2024-12-12T12:36:05.345409269Z
 description: HelmRelease maxHistory cannot exceed the specified value.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

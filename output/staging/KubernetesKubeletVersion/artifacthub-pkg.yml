@@ -7,7 +7,7 @@
 version: 0.0.1
 name: kubernetes-minimum-kubelet-version
 displayName: Kubernetes Minimum Kubelet Version
-createdAt: 2024-12-12T12:29:00.667657508Z
+createdAt: 2024-12-12T12:36:12.869464271Z
 description: |
   This Policy checks the minimum kubelet version for your Nodes. Please use this type of versioning (`v1.0.0`) and omit any suffix starting with a hyphen (`-`)
 license: Apache-2.0

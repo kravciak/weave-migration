@@ -7,7 +7,7 @@
 version: 0.0.1
 name: helm-chart-cosign-verification
 displayName: HelmChart Cosign Verification
-createdAt: 2024-12-12T12:28:11.554670999Z
+createdAt: 2024-12-12T12:35:21.320773478Z
 description: HelmChart objects must provide cosign verification and reference a secret containing the Cosign public keys of trusted authors
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

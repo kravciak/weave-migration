@@ -7,7 +7,7 @@
 version: 0.0.1
 name: bucket-approved-region
 displayName: Bucket Approved Region
-createdAt: 2024-12-12T12:28:51.319412492Z
+createdAt: 2024-12-12T12:36:03.287662633Z
 description: Bucket region must be one of the approved regions.
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

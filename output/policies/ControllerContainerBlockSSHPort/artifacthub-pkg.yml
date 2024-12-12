@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-block-ssh-port
 displayName: Containers Block Ssh Port
-createdAt: 2024-12-12T12:27:59.729676291Z
+createdAt: 2024-12-12T12:35:09.941188349Z
 description: |
   This Policy checks if the container is exposing ssh port.
 license: Apache-2.0
