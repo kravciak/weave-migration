@@ -30,11 +30,14 @@ trap_exit() {
 trap 'echo "Error on ${BASH_SOURCE}:${LINENO} $(sed -n "${LINENO} s/^\s*//p" ${BASH_SOURCE})"' ERR
 trap 'trap_exit' EXIT
 
-# ==================================================================================================
-# Variables & Functions
-
 exec &>> $OUTPUT
 echo -n | tee $REPORT > $OUTPUT
+
+# ==================================================================================================
+# Helper functions
+
+# Get crds for flux (helmreleases, buckets, helmcharts, helmrepositories, kustomizations, ...)
+# kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
 
 do_readme() {
     yq '"# " + .spec.name' "$INDIR/policy.yaml"
@@ -55,9 +58,6 @@ do_readme() {
     echo "Policy applies to resources kinds:"
     yq '.spec.targets.kinds | map("`" + . + "`") | join(", ")' "$INDIR/policy.yaml"
 }
-
-# Get crds for flux (helmreleases, buckets, helmcharts, helmrepositories, kustomizations, ...)
-# kubectl apply -f https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
 
 do_metadata() {
     KINDS="${1:-}" yq '{"rules":
@@ -113,19 +113,6 @@ do_metadata() {
         + (.spec.standards // [] | map({"key": "io.kubewarden.policy.standards." + (.id | sub("weave.standards."; "")), "value": (.controls | map(sub("weave.controls."; "")) | join(", "))}) | from_entries)
     )}' "$INDIR/policy.yaml"
 
-
-    # yq '.spec.standards | map({"io.kubewarden.policy.standards." + (.id |  sub("weave.standards.";"")): (.controls | map(sub("weave.controls."; "")) | join(", "))})' "$INDIR/policy.yaml"
-
-    # yq 'with(
-    # .spec.standards[];
-    # {"io.kubewarden.policy.standards." + .id: (.controls | map(sub("weave.controls."; "")) | join(", "))}
-    # ) | add' input.yaml
-
-    # yq 'with(
-    # .spec.standards[];
-    # .id as $id |
-    # {"("io.kubewarden.policy.standards." + ($id | split(".")[-1]))": (.controls | map(sub("weave.controls."; "")) | join(", "))}
-    # ) | add' "$INDIR/policy.yaml"
 }
 
 # ==================================================================================================
