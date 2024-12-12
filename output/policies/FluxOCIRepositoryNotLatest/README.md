@@ -5,8 +5,6 @@ OCIRepository resources must not use 'latest' as a tag reference.
 Specify a versioned tag for the OCIRepository instead of using 'latest'.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

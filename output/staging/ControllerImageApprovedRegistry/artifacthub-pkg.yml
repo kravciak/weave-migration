@@ -7,7 +7,7 @@
 version: 0.0.1
 name: approved-registry
 displayName: Approved Registry
-createdAt: 2024-12-11T23:12:54.137901981Z
+createdAt: 2024-12-12T10:18:00.567868824Z
 description: "This Policy is violated when container images are not using approved container registries. The Policy allows for you to add multiple registries. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

@@ -5,8 +5,6 @@ GitRepository resources must not use targets from untrusted domains.
 Ensure the GitRepository URL does not belong to an untrusted domain.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

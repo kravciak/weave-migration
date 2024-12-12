@@ -5,8 +5,6 @@ HelmRelease maxHistory cannot exceed the specified value.
 Set the maxHistory of the HelmRelease to a value less than or equal to the specified limit.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

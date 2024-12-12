@@ -5,8 +5,6 @@ HelmRelease must not have post-renderers enabled.
 Remove the post-renderers configuration from the HelmRelease.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

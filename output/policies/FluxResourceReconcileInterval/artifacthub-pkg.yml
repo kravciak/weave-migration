@@ -7,7 +7,7 @@
 version: 0.0.1
 name: resource-reconcile-interval
 displayName: Resource Reconcile Interval Must Be Set Between Lower and Upper Bound
-createdAt: 2024-12-11T23:13:06.749485833Z
+createdAt: 2024-12-12T10:18:13.15725403Z
 description: The reconcile interval of a Resource must be set between a lower and upper bound, lower_bound & upper_bound must be in seconds .
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

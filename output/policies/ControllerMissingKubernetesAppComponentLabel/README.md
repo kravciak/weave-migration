@@ -44,8 +44,6 @@ For additional information, please check
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

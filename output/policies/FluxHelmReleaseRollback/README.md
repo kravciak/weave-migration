@@ -5,8 +5,6 @@ The rollback feature of a HelmRelease should be disabled.
 Set the rollback feature of the HelmRelease to false.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

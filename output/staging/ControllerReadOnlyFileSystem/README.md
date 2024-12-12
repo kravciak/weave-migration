@@ -18,8 +18,6 @@ https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

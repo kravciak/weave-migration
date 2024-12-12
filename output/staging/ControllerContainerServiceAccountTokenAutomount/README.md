@@ -20,8 +20,6 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-accou
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -5,8 +5,6 @@ Kustomization patches should be enabled or disabled based on input.
 Update the 'spec.patches' field in the Kustomization object according to the input.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

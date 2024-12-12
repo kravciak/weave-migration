@@ -7,7 +7,7 @@
 version: 0.0.1
 name: rbac-prohibit-watch-secrets
 displayName: Rbac Prohibit Watch On Secrets
-createdAt: 2024-12-11T23:12:49.766494746Z
+createdAt: 2024-12-12T10:17:56.205543321Z
 description: |
   This Policy will violate if any RBAC ClusterRoles or Roles are designated with 'watch' verb on 'secrets' resource.
 license: Apache-2.0

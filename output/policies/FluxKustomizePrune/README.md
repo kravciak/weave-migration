@@ -5,8 +5,6 @@ The 'spec.prune' field in the Kustomization object must be set according to the 
 Update the 'spec.prune' field in the Kustomization object to match the required value.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

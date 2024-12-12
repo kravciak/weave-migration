@@ -12,8 +12,6 @@ metadata:
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

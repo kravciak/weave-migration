@@ -15,8 +15,6 @@ https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

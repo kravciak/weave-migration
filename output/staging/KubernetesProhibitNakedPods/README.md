@@ -12,8 +12,6 @@ https://kubernetes.io/docs/concepts/configuration/overview/#naked-pods-vs-replic
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters: null

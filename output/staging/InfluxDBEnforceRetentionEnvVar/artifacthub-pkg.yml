@@ -7,7 +7,7 @@
 version: 0.0.1
 name: influxdb-enforce-retention-env-var
 displayName: InfluxDB Enforce Environment Variable - DOCKER_INFLUXDB_INIT_RETENTION
-createdAt: 2024-12-11T23:12:24.063368934Z
+createdAt: 2024-12-12T10:17:30.57954212Z
 description: |
   This Policy ensures DOCKER_INFLUXDB_INIT_RETENTION environment variable are in place when using the official container images from Docker Hub.
   DOCKER_INFLUXDB_INIT_RETENTION: The duration the system's initial bucket should retain data. If not set, the initial bucket will retain data forever.

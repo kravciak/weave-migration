@@ -22,8 +22,6 @@ https://kubernetes.io/docs/tutorials/clusters/seccomp/#create-pod-that-uses-the-
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

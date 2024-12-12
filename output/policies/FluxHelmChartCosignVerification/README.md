@@ -5,8 +5,6 @@ HelmChart objects must provide cosign verification and reference a secret contai
 Add cosign verification and reference a secret containing the Cosign public keys of trusted authors to the HelmChart object.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

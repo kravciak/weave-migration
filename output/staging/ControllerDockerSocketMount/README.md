@@ -18,8 +18,6 @@ Ensure workloads aren't mounting the `docker.sock` (or other configured socket n
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

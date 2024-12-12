@@ -9,8 +9,6 @@ For futher information about the MYSQL Docker container, check here: https://hub
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

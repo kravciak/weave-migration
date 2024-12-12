@@ -12,8 +12,6 @@ Ensure the restartPolicy is set to some specific policy in your workloads.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

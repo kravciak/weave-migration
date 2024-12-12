@@ -25,8 +25,6 @@ https://kubernetes.io/docs/concepts/policy/pod-security-policy/#host-namespaces
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

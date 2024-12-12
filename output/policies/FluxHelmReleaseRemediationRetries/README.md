@@ -5,8 +5,6 @@ HelmRelease remediation retries must be within the specified lower and upper bou
 Set the remediation retries value of the HelmRelease to a value within the allowed range.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

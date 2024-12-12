@@ -5,8 +5,6 @@ OCIRepository resources must only be from allowed organization domains.
 Ensure the OCIRepository URL belongs to an allowed organization domain.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -12,8 +12,6 @@ Ensure the key you have specified in your constraint exists in your workloads.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -5,8 +5,6 @@ HelmChart must reference values files in the following format: 'xxx=values.yaml'
 Update the HelmChart valuesFrom field to use the correct format.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

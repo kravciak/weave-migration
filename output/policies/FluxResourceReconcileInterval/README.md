@@ -5,8 +5,6 @@ The reconcile interval of a Resource must be set between a lower and upper bound
 Set the reconcile interval of the Resource between the specified lower and upper bounds.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

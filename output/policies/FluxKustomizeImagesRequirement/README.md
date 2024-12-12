@@ -5,8 +5,6 @@ The 'spec.images' field in a Kustomization object must be enabled or disabled ba
 Update the 'spec.images' field in the Kustomization object based on the policy input images_required.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -5,8 +5,6 @@ The property 'spec.postBuild.substitute.var_substitution_enabled' must be disabl
 Set the Kustomization's spec.postBuild.substitute.var_substitution_enabled to false.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

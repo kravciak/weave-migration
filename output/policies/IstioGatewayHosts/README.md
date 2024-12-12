@@ -8,8 +8,6 @@ Ensure your domain name is the same as the one you are hosting.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

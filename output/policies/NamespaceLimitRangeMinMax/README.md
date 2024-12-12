@@ -27,8 +27,6 @@ https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -5,8 +5,6 @@ The type of a Helm repository should be OCI.
 Change the type of the Helm repository to OCI.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

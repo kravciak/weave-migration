@@ -5,8 +5,6 @@ GitRepository resources must reference a specific branch, e.g. 'main'.
 Ensure the GitRepository ref field points to the specific branch (e.g. 'main').
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

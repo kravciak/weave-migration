@@ -5,8 +5,6 @@ The URL of a Helm repository should only be from the specified organisation doma
 Change the URL of the Helm repository to one that is from the organisation domain.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

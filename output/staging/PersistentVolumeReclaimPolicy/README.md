@@ -15,8 +15,6 @@ https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/#wh
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

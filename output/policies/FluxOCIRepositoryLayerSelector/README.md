@@ -5,8 +5,6 @@ OCIRepository layer selector must only reference predefined media/operation type
 Ensure the OCIRepository layer selector refers to a predefined media and operation type.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

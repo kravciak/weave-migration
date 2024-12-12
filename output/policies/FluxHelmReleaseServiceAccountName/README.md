@@ -5,8 +5,6 @@ HelmRelease serviceAccountName must contain a value from parameters.service_acco
 Set the serviceAccountName of the HelmRelease to one of the allowed service accounts.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

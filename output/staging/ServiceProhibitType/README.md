@@ -13,8 +13,6 @@ https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -17,8 +17,6 @@ https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

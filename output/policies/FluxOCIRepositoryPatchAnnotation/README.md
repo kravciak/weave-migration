@@ -5,8 +5,6 @@ OCIRepository resources must have a patch annotation that matches the provider.
 Ensure the OCIRepository has a patch annotation matching the provider.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

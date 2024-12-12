@@ -43,8 +43,6 @@ do_readme() {
     echo
 
     echo "# Settings"
-    echo
-    echo "Rego parameters:"
     echo '```yaml'
     yq '{"settings":{"parameters": .spec.parameters}}' "$INDIR/policy.yaml" | sed 's/^/  /'
     echo '```'
@@ -180,6 +178,7 @@ for pol in $POLICIES; do
     ls "$OUTDIR/tests/"*.y?ml  &>/dev/null && { ./test_policies --policy-path "$OUTDIR" || error "Yaml tests failed"; }
     make -C "$OUTDIR" artifacthub-pkg.yml VERSION=0.0.1
     make -C "$OUTDIR" policy.wasm annotated-policy.wasm
+
 done
 
 step "Done."

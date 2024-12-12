@@ -15,8 +15,6 @@ https://www.iana.org/assignments/service-names-port-numbers/service-names-port-n
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

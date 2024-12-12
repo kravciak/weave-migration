@@ -5,8 +5,6 @@ spec.path cannot be one of excludedPathsList[]
 Update the spec.path to a value not in the excluded paths list.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

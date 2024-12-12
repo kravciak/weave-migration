@@ -9,8 +9,6 @@ For futher information about the RabbitMQ Docker container, check here: https://
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

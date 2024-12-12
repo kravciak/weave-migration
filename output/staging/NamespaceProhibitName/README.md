@@ -12,8 +12,6 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/#wo
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

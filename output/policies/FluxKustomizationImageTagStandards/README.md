@@ -5,8 +5,6 @@ spec.Images must comply with image tag/semver reference standards.
 Update the image tag to comply with semver reference standards.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

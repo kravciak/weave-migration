@@ -5,8 +5,6 @@ GitRepository resources must include specific suffixes in the spec.ignore field 
 Ensure the spec.ignore field in the GitRepository resource includes the required suffixes. The specified suffixes correspond to the file types that should not be included in the repository commit.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

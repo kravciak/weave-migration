@@ -12,8 +12,6 @@ https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#scaling-a-
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -14,8 +14,6 @@ Make sure you are not exposing ssh port on containers.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

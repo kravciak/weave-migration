@@ -7,7 +7,7 @@
 version: 0.0.1
 name: container-maximum-memory-limits
 displayName: Container Maximum Memory Limits
-createdAt: 2024-12-11T23:12:56.646692011Z
+createdAt: 2024-12-12T10:18:03.21598482Z
 description: |
   This Policy is to ensure a maximum Memory Limit value is set. The policy will fail if the set Memory limit is higher than the one specified in the policy. You must specify a unit size (e.g Mi, Gi, etc).
 license: Apache-2.0

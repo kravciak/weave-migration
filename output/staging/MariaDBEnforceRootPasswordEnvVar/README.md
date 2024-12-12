@@ -9,8 +9,6 @@ For futher information about the MariaDB Docker container, check here: https://h
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

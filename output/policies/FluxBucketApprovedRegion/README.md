@@ -5,8 +5,6 @@ Bucket region must be one of the approved regions.
 Set the region of the Bucket to one of the approved regions.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

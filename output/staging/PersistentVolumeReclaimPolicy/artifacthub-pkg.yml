@@ -7,7 +7,7 @@
 version: 0.0.1
 name: persistent-volume-reclaim-policy-should-be-set-to-retain
 displayName: Persistent Volume Reclaim Policy Should Be Set To Retain
-createdAt: 2024-12-11T23:12:38.951436942Z
+createdAt: 2024-12-12T10:17:45.491712701Z
 description: |
   This Policy checks to see whether or not the persistent volume reclaim policy is set.
 

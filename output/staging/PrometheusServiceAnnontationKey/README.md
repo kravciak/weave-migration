@@ -14,8 +14,6 @@ https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

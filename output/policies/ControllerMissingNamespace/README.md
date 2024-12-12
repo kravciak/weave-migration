@@ -12,8 +12,6 @@ https://kubernetes.io/docs/tasks/administer-cluster/namespaces/#understanding-th
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -5,8 +5,6 @@ HelmRelease valuesFrom must use correctly configured ConfigMaps.
 Ensure that the HelmRelease uses allowed ConfigMaps in the valuesFrom field.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

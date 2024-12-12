@@ -5,8 +5,6 @@ Spec.decryption.provider must be set to one of decryption_providers.
 Set the Kustomization's Spec.decryption.provider to a valid value from the decryption_providers.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

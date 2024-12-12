@@ -5,8 +5,6 @@ Ensure that Bucket objects do not use insecure connections
 Set 'spec.insecure' to 'false' or remove the field from the Bucket object.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -15,8 +15,6 @@ https://prometheus.io/docs/prometheus/latest/configuration/configuration/#pod
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

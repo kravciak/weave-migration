@@ -15,8 +15,6 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#resour
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

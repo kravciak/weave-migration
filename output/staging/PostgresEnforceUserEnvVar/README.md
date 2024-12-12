@@ -10,8 +10,6 @@ For futher information about the Postgres Docker container, check here: https://
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

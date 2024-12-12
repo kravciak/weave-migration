@@ -7,7 +7,7 @@
 version: 0.0.1
 name: mysql-enforce-password-env-var
 displayName: MYSQL Enforce Environment Variable - MYSQL_PASSWORD
-createdAt: 2024-12-11T23:12:36.136057209Z
+createdAt: 2024-12-12T10:17:42.639739168Z
 description: "This Policy ensures MYSQL_PASSWORD environment variable are in place when using the official container images from Docker Hub.\nMYSQL_PASSWORD: The MYSQL_PASSWORD environment variable specifies a password for MYSQL_USER user. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

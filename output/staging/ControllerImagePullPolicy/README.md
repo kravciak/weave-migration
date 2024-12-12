@@ -26,8 +26,6 @@ https://kubernetes.io/docs/concepts/configuration/overview/#container-images
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

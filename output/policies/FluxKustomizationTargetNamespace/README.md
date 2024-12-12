@@ -5,8 +5,6 @@ Kustomization targetNamespace must be one of the allowed targetNamespace list.
 Set the targetNamespace of the Kustomization to one of the allowed namespaces.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

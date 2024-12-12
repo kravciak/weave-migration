@@ -5,8 +5,6 @@ HelmRelease storageNamespace must contain a value from storage_namespaces.
 Set the storageNamespace of the HelmRelease to one of the allowed namespaces.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

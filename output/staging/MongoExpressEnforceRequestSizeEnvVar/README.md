@@ -9,8 +9,6 @@ For futher information about the Mongo-Express Docker container, check here: htt
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -7,8 +7,6 @@ If you are encountered a violation, ensure the environment variable is not set.
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

@@ -7,7 +7,7 @@
 version: 0.0.1
 name: missing-matchlabels-key
 displayName: Missing Matchlabels Key
-createdAt: 2024-12-11T23:12:55.17487996Z
+createdAt: 2024-12-12T10:18:01.579282823Z
 description: |
   This Policy will enforce a custom match label key in `spec.selector`.
 license: Apache-2.0

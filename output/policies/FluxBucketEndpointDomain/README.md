@@ -5,8 +5,6 @@ Bucket endpoint domain must be one of the trusted domains.
 Update the Bucket endpoint domain to one of the trusted domains.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

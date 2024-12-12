@@ -17,8 +17,6 @@ https://kubernetes.io/docs/concepts/configuration/overview/#services
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

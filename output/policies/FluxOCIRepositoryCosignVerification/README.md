@@ -5,8 +5,6 @@ OCIRepository resources must provide Cosign verification and reference a specifi
 Ensure the OCIRepository verification provider is 'cosign' and references a specific key.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

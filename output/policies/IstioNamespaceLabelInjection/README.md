@@ -8,8 +8,6 @@ https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#automatic
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

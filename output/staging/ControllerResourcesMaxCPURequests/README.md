@@ -15,8 +15,6 @@ This Policy is to ensure a maxiumum CPU Request value is set. The policy will fa
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

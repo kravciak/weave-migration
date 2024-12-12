@@ -5,8 +5,6 @@ Resource cannot be suspended unless it's on the waiver list.
 Add the Resource to the waiver list or set 'suspend' to false.
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

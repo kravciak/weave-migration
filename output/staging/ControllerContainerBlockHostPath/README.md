@@ -17,8 +17,6 @@ Using HostPath could allow mounting the entire host’s filesystem into your pod
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:

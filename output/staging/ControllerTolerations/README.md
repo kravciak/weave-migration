@@ -15,8 +15,6 @@ https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
 
 
 # Settings
-
-Rego parameters:
 ```yaml
   settings:
     parameters:
