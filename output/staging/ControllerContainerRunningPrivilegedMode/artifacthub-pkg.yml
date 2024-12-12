@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-running-in-privileged-mode
 displayName: Containers Running In Privileged Mode
-createdAt: 2024-12-12T12:35:11.83488119Z
+createdAt: 2024-12-12T12:45:14.168910015Z
 description: |
   This Policy reports if containers are running in privileged mode. A privileged container is given access to all devices on the host. This allows the container nearly all the same access as processes running on the host.
 

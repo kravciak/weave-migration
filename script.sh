@@ -8,8 +8,11 @@ yq() { command yq -e "$@"; }
 jq() { command jq -e "$@"; }
 
 exec 3>&1     # keep logs on stdout after redirection
-: ${OUTPUT:=} # don't print twice if output=stdout
-log  () { printf -- "$(date +%R) \e[${1}m${*:2}\e[0m\n" | tee -a ${OUTPUT/\/dev\/stdout} output/script.log >&3; }
+DATADIR="$PWD/data"
+REPORT="output/script.log"
+OUTPUT="output/script-full.log"
+
+log  () { printf -- "$(date +%R) \e[${1}m${*:2}\e[0m\n" | tee -a "$OUTPUT" "$REPORT" >&3; }
 step () { log 32 "${*}" $(basename "${BASH_SOURCE[1]/${BASH_SOURCE}}" | sed 's/.\+/[&]/'); } # print test module
 info () { log 0  "  ${*}"; }
 warn () { log 33 "  ${*}"; }
@@ -19,8 +22,9 @@ trap_exit() {
     status=$?
     if [ $status -ne 0 ]; then
         tail -20 "$OUTPUT" | sed -r -e 's:\x1b\[[0-9;]*[mK]::g' -e 's/^/> /' >&3
-        exit $status
     fi
+    [ -f "$REPORT" ] && sed -ri 's:\x1b\[[0-9;]*[mK]::g' "$REPORT" # remove colors
+    exit $status
 }
 
 trap 'echo "Error on ${BASH_SOURCE}:${LINENO} $(sed -n "${LINENO} s/^\s*//p" ${BASH_SOURCE})"' ERR
@@ -29,9 +33,8 @@ trap 'trap_exit' EXIT
 # ==================================================================================================
 # Variables & Functions
 
-: ${DATADIR:=$PWD/data}
-exec &>> ${OUTPUT:=$PWD/output/script-full.log}
-echo -n > $OUTPUT
+exec &>> $OUTPUT
+echo -n | tee $REPORT > $OUTPUT
 
 do_readme() {
     yq '"# " + .spec.name' "$INDIR/policy.yaml"
