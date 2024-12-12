@@ -7,7 +7,7 @@
 version: 0.0.1
 name: container-enforce-environment-variable
 displayName: Container Enforce Environment Variable
-createdAt: 2024-12-11T17:53:40.904351386Z
+createdAt: 2024-12-11T23:12:53.519088084Z
 description: "This Policy checks whether an environment variable is missing or not. \n"
 license: Apache-2.0
 homeURL: https://github.com/kubewarden/rego-policies

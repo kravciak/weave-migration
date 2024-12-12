@@ -7,7 +7,7 @@
 version: 0.0.1
 name: rabbitmq-enforce-config-file-env-var
 displayName: RabbitMQ Enforce Environment Variable - RABBITMQ_CONFIG_FILE
-createdAt: 2024-12-11T17:53:28.835878213Z
+createdAt: 2024-12-11T23:12:42.128730676Z
 description: |
   This Policy ensures RABBITMQ_CONFIG_FILE environment variable are in place when using the official container images from Docker Hub.
   RABBITMQ_CONFIG_FILE: The path to the configuration file, without the .config extension. If the configuration file is present it is used by the server to configure RabbitMQ components. See Configuration guide for more information.

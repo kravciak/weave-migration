@@ -7,7 +7,7 @@
 version: 0.0.1
 name: rbac-prohibit-wildcard-secrets
 displayName: Rbac Prohibit Wildcard On Secrets
-createdAt: 2024-12-11T17:53:37.308844912Z
+createdAt: 2024-12-11T23:12:50.07274533Z
 description: |
   This Policy will violate if any RBAC ClusterRoles or Roles are designated with 'wildcard' verb on 'secrets' resource.
 license: Apache-2.0

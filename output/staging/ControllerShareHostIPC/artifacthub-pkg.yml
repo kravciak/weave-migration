@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-sharing-host-ipc
 displayName: Containers Sharing Host IPC
-createdAt: 2024-12-11T17:53:02.906386474Z
+createdAt: 2024-12-11T23:12:17.858970862Z
 description: |
   This Policy allows check if sharing host IPC namespace with the container should be allowed or not. Resources that can be shared with the container include:
 

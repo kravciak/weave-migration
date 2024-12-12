@@ -7,7 +7,7 @@
 version: 0.0.1
 name: containers-sharing-host-pid
 displayName: Containers Sharing Host PID
-createdAt: 2024-12-11T17:53:03.524457097Z
+createdAt: 2024-12-11T23:12:18.449421788Z
 description: |
   This Policy allows check if sharing host PID namespace with the container should be allowed or not. Resources that can be shared with the container include:
 
